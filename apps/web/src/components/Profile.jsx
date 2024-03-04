@@ -10,6 +10,8 @@ import {
   Box,
 } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
+import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
+import AnnouncementIcon from "@mui/icons-material/Announcement";
 
 const ProfileCard = ({
   name,
@@ -42,40 +44,55 @@ const ProfileCard = ({
           <Typography variant="body2" component="div" color="text.secondary">
             {jobTitle}
           </Typography>
+          <Typography variant="body2" component="div" color="text.secondary">
+            CSE 2025
+          </Typography>
         </Box>
       </CardContent>
       <Divider />
       <CardContent>
         <Grid direction={"column"} container spacing={1}>
           <Box display={"flex"} ml={2} alignItems={"center"} gap={2}>
-            <WorkIcon />
+            <WorkIcon style={{ fill: "#2ac40f" }} />
             <Grid item xs={4}>
-              <Typography variant="body2" component="div">
+              <Typography
+                variant="body2"
+                component="div"
+                color="text.secondary"
+              >
                 Applied Jobs
               </Typography>
-              <Typography variant="h7" component="div">
+              <Typography variant="h7" component="div" fontWeight={600}>
                 {applications}
               </Typography>
             </Grid>
           </Box>
           <Box display={"flex"} ml={2} alignItems={"center"} gap={2}>
-            <WorkIcon />
+            <RemoveDoneIcon style={{ fill: "#f44336" }} />
             <Grid item xs={4}>
-              <Typography variant="body2" component="div">
-                Applied Jobs
+              <Typography
+                variant="body2"
+                component="div"
+                color="text.secondary"
+              >
+                Incomplete
               </Typography>
-              <Typography variant="h7" component="div">
+              <Typography variant="h7" component="div" fontWeight={600}>
                 {applications}
               </Typography>
             </Grid>
           </Box>
           <Box display={"flex"} ml={2} alignItems={"center"} gap={2}>
-            <WorkIcon />
+            <AnnouncementIcon style={{ fill: "#d8ca0d" }} />
             <Grid item xs={4}>
-              <Typography variant="body2" component="div">
-                Applied Jobs
+              <Typography
+                variant="body2"
+                component="div"
+                color="text.secondary"
+              >
+                Responses
               </Typography>
-              <Typography variant="h7" component="div">
+              <Typography variant="h7" component="div" fontWeight={600}>
                 {applications}
               </Typography>
             </Grid>
