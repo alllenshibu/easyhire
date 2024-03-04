@@ -102,9 +102,10 @@ const Drawer = styled(MuiDrawer, {
 const defaultTheme = createTheme({
   palette: {
     mode: "light",
-    primary: {
-      main: "#b04aeb",
-    },
+    main: "#1976d2",
+    light: "#42a5f5",
+    dark: "#1565c0",
+    contrastText: "#fff",
   },
   shape: {
     borderRadius: 16, // Set a value for the border radius (adjust as needed)
@@ -193,15 +194,9 @@ export default function Dashboard({ children }) {
           }}
         >
           <Toolbar />
-          <Box
-            padding={4}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
+        
             {children}
-          </Box>
+       
 
           {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>

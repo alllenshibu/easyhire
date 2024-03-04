@@ -9,8 +9,9 @@ import {
   Grid,
   Box,
   Button,
+  SvgIcon,
 } from "@mui/material";
-
+import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 const JobCard = ({
   logo,
   company,
@@ -64,9 +65,18 @@ const JobCard = ({
                 </Typography>
               </Grid>
             </Box>
-            <Button variant="contained" color="primary">
-              Apply
-            </Button>
+            <Box
+              display={"flex"}
+              justifyContent={"space-evenly"}
+              alignContent={"center"}
+            >
+              <Button variant="contained" color="primary">
+                Apply
+              </Button>
+              <Button variant="text" color="primary">
+                <SvgIcon component={OpenInFullIcon} />
+              </Button>
+            </Box>
           </Box>
 
           <Divider orientation="horizontal" sx={{ height: 20, mb: 2 }} />

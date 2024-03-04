@@ -13,8 +13,9 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 import Review from "./Review";
-import AddressForm from "./Resumeform";
+
 import PaymentForm from "./Paymentform";
+import ResumeForm from "./Resumeform";
 
 function Copyright() {
   return (
@@ -29,12 +30,12 @@ function Copyright() {
   );
 }
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Fill Details", "Agree to TOS", "Review"];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <ResumeForm />;
     case 1:
       return <PaymentForm />;
     case 2:
@@ -44,7 +45,7 @@ function getStepContent(step) {
   }
 }
 
-export default function Checkout() {
+export default function ApplicationForm() {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -65,7 +66,7 @@ export default function Checkout() {
           sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
         >
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Application
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
@@ -80,9 +81,8 @@ export default function Checkout() {
                 Thank you for your order.
               </Typography>
               <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order
-                confirmation, and will send you an update when your order has
-                shipped.
+                Your have completed the registration. We have emailed your order
+                confirmation, and will send you an update.
               </Typography>
             </React.Fragment>
           ) : (
@@ -100,7 +100,7 @@ export default function Checkout() {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                  {activeStep === steps.length - 1 ? "Submit" : "Next"}
                 </Button>
               </Box>
             </React.Fragment>
