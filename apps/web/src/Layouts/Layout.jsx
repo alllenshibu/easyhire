@@ -101,10 +101,13 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
       main: "#b04aeb",
     },
+  },
+  shape: {
+    borderRadius: 16, // Set a value for the border radius (adjust as needed)
   },
 });
 
@@ -115,34 +118,9 @@ export default function Dashboard({ children }) {
   };
   const router = useRouter();
 
-  const [openCart, setOpenCart] = React.useState(false);
-  const [cartItems, setCartItems] = React.useState([]);
- 
   const toggleDrawerCart = () => () => {
     setOpenCart(!openCart);
   };
-
-  const DrawerList = (
-    <Box
-      sx={{ width: 1050 }}
-      role="presentation"
-      onClick={toggleDrawerCart(false)}
-    >
-      <Divider />
-      <List>
-        {cartItems.map((items) => (
-          <ListItem key={items?.productId} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {/* {index % 2 === 0 ? <Mail /> : <Mail />} */}
-              </ListItemIcon>
-              <ListItemText primary={items.quantity} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -180,14 +158,6 @@ export default function Dashboard({ children }) {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton onClick={toggleDrawerCart} color="inherit">
-              <Badge badgeContent={0} color="secondary">
-                <AddShoppingCartIcon onClick={toggleDrawerCart} />
-              </Badge>
-            </IconButton>
-            <Drawer open={open} onClose={toggleDrawerCart(false)}>
-              {DrawerList}
-            </Drawer>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -223,7 +193,16 @@ export default function Dashboard({ children }) {
           }}
         >
           <Toolbar />
-          {children}
+          <Box
+            padding={4}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            {children}
+          </Box>
+
           {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
              
