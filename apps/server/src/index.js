@@ -1,38 +1,53 @@
-const express = require("express");
-const dotenv = require("dotenv");
-var cors = require("cors");
-const port = process.env.PORT || 3001;
+const  express = require( 'express');
+const dotenv = require('dotenv');
+
+const router = require('./routes');
+
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
 dotenv.config();
+
+const port = process.env.PORT;
 
 const app = express();
 
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-var whitelist = ["http://localhost:3000", process.env.CLIENT_URL];
-var corsOptions = {
-  origin: whitelist,
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 
-console.log(process.env.CLIENT_URL);
-app.use(cors(corsOptions));
+app.use(
+  bodyParser.json({
+    limit: '50mb',
+  }),
+);
 
-app.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-  );
+app.get('/', (req, res) => {
+  return res.send('Easy Hire Server');
 });
 
+app.get('/health', (req, res) => {
+  const healthcheck= {
+    resource: 'Easy Hire Server',
+    uptime: process.uptime(),
+    responseTime: process.hrtime(),
+    message: 'OK',
+    timestamp: Date.now(),
+  };
+  try {
+    res.send(healthcheck);
+  } catch (error) {
+    healthcheck.message = error;
+    res.status(503).send();
+  }
+});
+
+
+app.use('/',  router);
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });
