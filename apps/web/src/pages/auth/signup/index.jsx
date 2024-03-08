@@ -31,7 +31,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme({
   palette: {
-    mode: "dark",
+    mode: "light",
     primary: {
       main: "#9014d7",
     },

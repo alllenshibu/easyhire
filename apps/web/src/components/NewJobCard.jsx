@@ -12,6 +12,7 @@ import {
   SvgIcon,
 } from "@mui/material";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
+import { useRouter } from "next/router";
 const JobCard = ({
   logo,
   company,
@@ -22,6 +23,8 @@ const JobCard = ({
   salary,
   description,
 }) => {
+  const router = useRouter();
+
   return (
     <Card sx={{ maxWidth: 800, display: "flex", flexDirection: "column" }}>
       <CardContent>
@@ -70,10 +73,10 @@ const JobCard = ({
               justifyContent={"space-evenly"}
               alignContent={"center"}
             >
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={()=>{router.push('/updateapplication')}}>
                 Apply
               </Button>
-              <Button variant="text" color="primary">
+              <Button variant="text" color="primary" onClick={()=>{router.push('/jobs')}}>
                 <SvgIcon component={OpenInFullIcon} />
               </Button>
             </Box>
