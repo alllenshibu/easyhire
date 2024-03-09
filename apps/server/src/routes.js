@@ -1,26 +1,14 @@
 const express = require("express");
-const prisma = require("./db");
+
+const { getAllCompanies, addNewCompany } = require("./controllers/companies");
+const { getAllJobPostings, addNewJobPosting } = require("./controllers/jobs");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  try {
-    return res.send("Hello World!");
-  } catch (err) {
-    console.error(err);
-    return res.status(500);
-  }
-});
+router.get("/companies", getAllCompanies);
+router.post("/companies", addNewCompany);
 
-router.get("/test", async (req, res) => {
-  try {
-    const companies = await prisma.companies.findMany();
-
-    return res.json(companies);
-  } catch (err) {
-    console.error(err);
-    return res.status(500);
-  }
-});
+router.get("/jobs", getAllJobPostings);
+router.post("/jobs", addNewJobPosting);
 
 module.exports = router;

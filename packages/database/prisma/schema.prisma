@@ -52,6 +52,7 @@ model Companies {
   name      String
   email     String
   website   String
+  logo      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   jobs      Jobs[]
@@ -60,6 +61,7 @@ model Companies {
 model Jobs {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   title        String
+  description  String
   company      Companies      @relation(fields: [companyId], references: [id])
   companyId    String         @db.ObjectId
   createdAt    DateTime       @default(now())
