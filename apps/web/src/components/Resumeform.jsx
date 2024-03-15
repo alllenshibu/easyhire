@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { use, useState, useEffect } from "react";
+import axios from "axios";
 import {
   Grid,
   Typography,
@@ -8,6 +9,19 @@ import {
 } from "@mui/material";
 
 export default function ResumeForm() {
+  async function getUser() {
+    const { data, error } = await axios.get(
+      `${process.env.NEXT_PUBLIC_SERVER_API}/user`,
+      { withCredentials: true }
+    );
+
+    console.log(data);
+    console.log(error);
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
