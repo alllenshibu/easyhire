@@ -10,13 +10,15 @@ import {
 
 export default function ResumeForm() {
   async function getUser() {
-    const { data, error } = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_API}/user`,
-      { withCredentials: true }
-    );
-
-    console.log(data);
-    console.log(error);
+    try {
+      const { data, error } = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_API}/user`,
+        { withCredentials: true }
+      );
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {
