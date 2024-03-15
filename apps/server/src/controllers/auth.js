@@ -8,7 +8,7 @@ const signup = async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const user = await prisma.users.create({
+    const user = await prisma.students.create({
       data: {
         email,
         password,
@@ -35,7 +35,7 @@ const login = async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const user = await prisma.users.findUnique({
+    const user = await prisma.students.findUnique({
       where: {
         email,
       },
