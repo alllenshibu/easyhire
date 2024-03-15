@@ -4,11 +4,14 @@ const { signup, login } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
 const { getAllJobPostings, addNewJobPosting } = require("./controllers/jobs");
 const auth = require("./middlewares/auth");
+const { getUserDetails } = require("./controllers/user");
 
 const router = express.Router();
 
 router.post("/signup", signup);
 router.post("/login", login);
+
+router.get("/user", auth, getUserDetails);
 
 router.get("/companies", auth, getAllCompanies);
 router.post("/companies", auth, addNewCompany);

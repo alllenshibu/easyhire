@@ -2,13 +2,12 @@ const prisma = require("./../db");
 
 const auth = async (req, res, next) => {
   try {
-    const { authorization } = req.headers;
+    const token = req.cookies["token"];
 
-    if (!authorization) {
+    if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    const token = authorization.replace("Bearer ", "");
     const user = await prisma.users.findUnique({
       where: {
         id: token,
