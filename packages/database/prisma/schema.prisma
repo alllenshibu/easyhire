@@ -7,9 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Coodinators {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Students {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
   firstName    String
   lastName     String
   phone        String         @unique
@@ -23,6 +32,30 @@ model Students {
   profiles     Profiles[]
 }
 
+model Companies {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String     @unique
+  password  String
+  website   String
+  logo      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  jobs      Jobs[]
+  Openings  Openings[]
+}
+
+model Openings {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  company      Companies      @relation(fields: [companyId], references: [id])
+  companyId    String         @db.ObjectId
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  applications Applications[]
+}
+
 model Profiles {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   student   Students @relation(fields: [studentId], references: [id])
@@ -33,33 +66,11 @@ model Profiles {
 }
 
 model Departments {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  students    Students[]
-  coodinators Coodinators[]
-}
-
-model Coodinators {
-  id           String      @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  email        String
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  departments  Departments @relation(fields: [departmentId], references: [id])
-  departmentId String      @db.ObjectId
-}
-
-model Companies {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  email     String
-  website   String
-  logo      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  jobs      Jobs[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  students  Students[]
 }
 
 model Jobs {
@@ -74,11 +85,13 @@ model Jobs {
 }
 
 model Applications {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  student   Students @relation(fields: [studentId], references: [id])
-  studentId String   @db.ObjectId
-  job       Jobs     @relation(fields: [jobId], references: [id])
-  jobId     String   @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  student    Students  @relation(fields: [studentId], references: [id])
+  studentId  String    @db.ObjectId
+  job        Jobs      @relation(fields: [jobId], references: [id])
+  jobId      String    @db.ObjectId
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Openings   Openings? @relation(fields: [openingsId], references: [id])
+  openingsId String?   @db.ObjectId
 }

@@ -1,22 +1,40 @@
 const express = require("express");
 
-const { signup, login } = require("./controllers/auth");
+const {
+  signupCoordinator,
+  loginCoordinator,
+  signupStudent,
+  loginStudent,
+  loginCompany,
+} = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
-const { getAllJobPostings, addNewJobPosting } = require("./controllers/jobs");
-const auth = require("./middlewares/auth");
+const {
+  authorize,
+  authorizeCoordinator,
+  authorizeCompany,
+} = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
+const { addNewOpening, getAllOpenings } = require("./controllers/openings");
+const { getAllStudents } = require("./controllers/students");
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/login", login);
+router.post("/auth/coordinators/signup", signupCoordinator);
+router.post("/auth/coordinators/login", loginCoordinator);
 
-router.get("/user", auth, getUserDetails);
+router.post("/auth/companies/login", loginCompany);
 
-router.get("/companies", auth, getAllCompanies);
-router.post("/companies", auth, addNewCompany);
+router.post("/auth/students/signup", signupStudent);
+router.post("/auth/students/login", loginStudent);
 
-router.get("/jobs", auth, getAllJobPostings);
-router.post("/jobs", auth, addNewJobPosting);
+router.post("/companies", authorizeCoordinator, addNewCompany);
+router.get("/companies", authorize, getAllCompanies);
+
+router.post("/openings", authorizeCompany, addNewOpening);
+router.get("/openings", authorize, getAllOpenings);
+
+router.get("/students", authorize, getAllStudents);
+
+router.get("/user", authorize, getUserDetails);
 
 module.exports = router;

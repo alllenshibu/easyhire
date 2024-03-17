@@ -2,19 +2,22 @@ const prisma = require("../db");
 
 const getAllCompanies = async (req, res) => {
   try {
-    const companies = await prisma.companies.findMany();
+    const companies = await prisma.companies.findMany({});
     return res.json({ companies });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
 
+//
+// Can be done only by coordinators
+//
 const addNewCompany = async (req, res) => {
   try {
-    const { name, email, website, logo } = req.body;
+    const { name, email, password, website, logo } = req.body;
 
-    if (!name || !email || !website || !logo) {
+    if (!name || !email || !password || !website || !logo) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -22,6 +25,7 @@ const addNewCompany = async (req, res) => {
       data: {
         name,
         email,
+        password,
         website,
         logo,
       },
@@ -34,7 +38,7 @@ const addNewCompany = async (req, res) => {
     return res.status(201).json({ newCompany });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
 

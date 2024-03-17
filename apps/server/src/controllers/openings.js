@@ -1,16 +1,16 @@
-const prisma = require("./../db");
+const prisma = require("../db");
 
-const getAllJobPostings = async (req, res) => {
+const getAllOpenings = async (req, res) => {
   try {
-    const jobPostings = await prisma.jobs.findMany();
-    return res.json({ jobPostings });
+    const openings = await prisma.jobs.findMany();
+    return res.json({ openings });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message });
   }
 };
 
-const addNewJobPosting = async (req, res) => {
+const addNewOpening = async (req, res) => {
   try {
     const { title, description, companyId } = req.body;
 
@@ -18,7 +18,7 @@ const addNewJobPosting = async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const newJobPosting = await prisma.jobs.create({
+    const newOpening = await prisma.jobs.create({
       data: {
         title,
         description,
@@ -26,11 +26,11 @@ const addNewJobPosting = async (req, res) => {
       },
     });
 
-    if (!newJobPosting) {
+    if (!newOpening) {
       return res.status(400).json({ error: "Job posting not added" });
     }
 
-    return res.status(201).json({ newJobPosting });
+    return res.status(201).json({ newOpening });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message });
@@ -38,6 +38,6 @@ const addNewJobPosting = async (req, res) => {
 };
 
 module.exports = {
-  getAllJobPostings,
-  addNewJobPosting,
+  getAllOpenings,
+  addNewOpening,
 };

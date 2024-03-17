@@ -1,18 +1,22 @@
 const prisma = require("./../db");
 
-const auth = async (req, res, next) => {
+//
+// General auth
+//
+const authorize = async (req, res, next) => {
   try {
-    const token = req.cookies["token"];
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
 
-    if (!token) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
+const authorizeCoordinator = async (req, res, next) => {
+  try {
+    let user = await prisma.coodinators.findMany({});
 
-    const user = await prisma.users.findUnique({
-      where: {
-        id: token,
-      },
-    });
+    user = user[0];
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });
@@ -22,8 +26,30 @@ const auth = async (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
 
-module.exports = auth;
+const authorizeCompany = async (req, res, next) => {
+  try {
+    let user = await prisma.companies.findMany({});
+
+    user = user[0];
+
+    if (!user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+module.exports = {
+  authorize,
+  authorizeCoordinator,
+  authorizeCompany,
+};
