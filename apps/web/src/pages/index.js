@@ -8,10 +8,12 @@ import Profile from "@/components/Profile";
 import ProfileCard from "@/components/Profile";
 import { ImportContacts } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import { useAuth } from "@/contexts/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { token } = useAuth();
   return (
     <>
       <Dashboard>
@@ -35,7 +37,6 @@ export default function Home() {
               experience="2+ years"
               salary="$80,000 - $100,000 per year"
               description="We are looking for a talented software engineer to join our team and help develop cutting-edge applications."
-              
             />
             <JobCard
               logo="https://cdn2.hubspot.net/hubfs/53/image8-2.jpg"
