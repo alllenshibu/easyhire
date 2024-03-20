@@ -1,4 +1,4 @@
-  generator client {
+generator client {
   provider = "prisma-client-js"
 }
 
@@ -72,7 +72,7 @@ model Applications {
   profileId String   @db.ObjectId
   opening   Openings @relation(fields: [openingId], references: [id])
   openingId String   @db.ObjectId
-  status    String
+  status    String   @default("pending")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

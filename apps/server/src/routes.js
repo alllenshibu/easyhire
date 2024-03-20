@@ -16,7 +16,11 @@ const {
 } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
 const { addNewOpening, getAllOpenings } = require("./controllers/openings");
-const { getAllStudents,getStudentDetails } = require("./controllers/students");
+const { getAllStudents, getStudentDetails } = require("./controllers/students");
+const {
+  getAllApplicationsOfAStudent,
+  createApplication,
+} = require("./controllers/applications");
 
 const router = express.Router();
 
@@ -37,6 +41,8 @@ router.get("/openings", authorize, getAllOpenings);
 router.get("/students", authorize, getAllStudents);
 
 router.get("/students/:studentId", authorize, getStudentDetails);
+router.get("/applications", authorize, getAllApplicationsOfAStudent);
+router.post("/applications", authorize, createApplication);
 
 router.get("/user", authorize, getUserDetails);
 router.post("/profiles", authorize, addNewProfile);
