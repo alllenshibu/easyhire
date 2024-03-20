@@ -112,7 +112,7 @@ const defaultTheme = createTheme({
   },
 });
 
-export default function Dashboard({ children }) {
+const Dashboard = ({ children }) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -194,9 +194,8 @@ export default function Dashboard({ children }) {
           }}
         >
           <Toolbar />
-        
-            {children}
-       
+
+          {children}
 
           {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
@@ -235,4 +234,6 @@ export default function Dashboard({ children }) {
       </Box>
     </ThemeProvider>
   );
-}
+};
+
+export default React.memo(Dashboard);

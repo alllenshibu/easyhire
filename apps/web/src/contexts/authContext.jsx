@@ -12,7 +12,9 @@ useEffect(() => {
   async function loadUserFromCookies() {
     const token = window.localStorage.getItem("token");
     if (token) {
+        //validate token
       console.log("Got a token in the cookies, let's see if it is valid");
+
       if (router.pathname.startsWith("/auth/")) {
         router.push("/");
       }
