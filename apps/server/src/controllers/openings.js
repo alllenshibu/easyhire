@@ -2,7 +2,7 @@ const prisma = require("../db");
 
 const getAllOpenings = async (req, res) => {
   try {
-    const openings = await prisma.jobs.findMany();
+    const openings = await prisma.openings.findMany();
     return res.json({ openings });
   } catch (err) {
     console.error(err);
@@ -18,7 +18,7 @@ const addNewOpening = async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const newOpening = await prisma.jobs.create({
+    const newOpening = await prisma.openings.create({
       data: {
         title,
         description,

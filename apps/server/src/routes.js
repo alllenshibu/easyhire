@@ -8,6 +8,7 @@ const {
   loginCompany,
 } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
+const {addNewProfile, getProfiles } = require("./controllers/profiles");
 const {
   authorize,
   authorizeCoordinator,
@@ -38,5 +39,7 @@ router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
 
 router.get("/user", authorize, getUserDetails);
+router.post("/profiles", authorize, addNewProfile);
+router.get("/profiles/:studentId", authorize, getProfiles);
 
 module.exports = router;
