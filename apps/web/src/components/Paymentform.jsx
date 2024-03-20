@@ -16,7 +16,7 @@ export default function PaymentForm() {
           checked={true} // Checked state controlled by cashOnDelivery state
           inputProps={{ "aria-label": "cash on delivery checkbox" }} // Aria label for accessibility
         />
-        Cash on Delivery
+        Cash on Delive
       </Grid>
     </React.Fragment>
   );

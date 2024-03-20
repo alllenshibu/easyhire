@@ -15,7 +15,7 @@ const {
 } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
 const { addNewOpening, getAllOpenings } = require("./controllers/openings");
-const { getAllStudents } = require("./controllers/students");
+const { getAllStudents,getStudentDetails } = require("./controllers/students");
 
 const router = express.Router();
 
@@ -34,6 +34,8 @@ router.post("/openings", authorizeCompany, addNewOpening);
 router.get("/openings", authorize, getAllOpenings);
 
 router.get("/students", authorize, getAllStudents);
+
+router.get("/students/:studentId", authorize, getStudentDetails);
 
 router.get("/user", authorize, getUserDetails);
 
