@@ -83,8 +83,8 @@ export default function ApplicationForm() {
               <Typography variant="subtitle1">
                 Your have completed the registration. We have emailed your order
                 confirmation, and will send you an update.
-              </Typography>
-            </React.Fragment>
+              </Typography>                                                                                                 
+            </React.Fragment>                                                                                                     
           ) : (
             <React.Fragment>
               {getStepContent(activeStep)}

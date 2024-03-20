@@ -2,7 +2,13 @@ const prisma = require("./../db");
 
 const getUserDetails = async (req, res) => {
   try {
-    let userDetails = await prisma.students.findMany({});
+    const { user } = req;
+
+    const userDetails = await prisma.users.findUnique({
+      where: {
+        id: token,
+      },
+    });
 
     if (!userDetails) {
       return res
@@ -10,9 +16,7 @@ const getUserDetails = async (req, res) => {
         .json({ error: "Something went wrong", success: false });
     }
 
-    userDetails = userDetails[0];
-
-    return res.status(200).json({ user: userDetails, success: true });
+    return res.status(200).json({ userDetails, success: true });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message, success: false });

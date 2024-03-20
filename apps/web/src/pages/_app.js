@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { AuthProvider } from "@/contexts/authContext";
 import "@/styles/globals.css";
 
@@ -8,3 +9,10 @@ export default function App({ Component, pageProps }) {
     </AuthProvider>
   );
 }
+=======
+import "@/styles/globals.css";
+
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+>>>>>>> Stashed changes
