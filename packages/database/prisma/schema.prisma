@@ -26,10 +26,9 @@ model Students {
   password     String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  applications Applications[]
-  Departments  Departments?   @relation(fields: [departmentId], references: [id])
   departmentId String?        @db.ObjectId
   profiles     Profiles[]
+  Applications Applications[]
 }
 
 model Companies {
@@ -41,7 +40,6 @@ model Companies {
   logo      String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  jobs      Jobs[]
   Openings  Openings[]
 }
 
@@ -53,45 +51,28 @@ model Openings {
   companyId    String         @db.ObjectId
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  applications Applications[]
+  Applications Applications[]
 }
 
 model Profiles {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  student   Students @relation(fields: [studentId], references: [id])
-  studentId String   @db.ObjectId
-  bio       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Departments {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  students  Students[]
-}
-
-model Jobs {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  description  String
-  company      Companies      @relation(fields: [companyId], references: [id])
-  companyId    String         @db.ObjectId
+  student      Students       @relation(fields: [studentId], references: [id])
+  studentId    String         @db.ObjectId
+  bio          String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  applications Applications[]
+  Applications Applications[]
 }
 
 model Applications {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  student    Students  @relation(fields: [studentId], references: [id])
-  studentId  String    @db.ObjectId
-  job        Jobs      @relation(fields: [jobId], references: [id])
-  jobId      String    @db.ObjectId
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Openings   Openings? @relation(fields: [openingsId], references: [id])
-  openingsId String?   @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  student   Students @relation(fields: [studentId], references: [id])
+  studentId String   @db.ObjectId
+  profile   Profiles @relation(fields: [profileId], references: [id])
+  profileId String   @db.ObjectId
+  opening   Openings @relation(fields: [openingId], references: [id])
+  openingId String   @db.ObjectId
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
