@@ -29,6 +29,8 @@ model Students {
   departmentId String?        @db.ObjectId
   profiles     Profiles[]
   Applications Applications[]
+  Skills       Skills?        @relation(fields: [skillsId], references: [id])
+  skillsId     String?        @db.ObjectId
 }
 
 model Companies {
@@ -43,12 +45,22 @@ model Companies {
   Openings  Openings[]
 }
 
+model Skills {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Students  Students[]
+}
+
 model Openings {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  description  String
   company      Companies      @relation(fields: [companyId], references: [id])
   companyId    String         @db.ObjectId
+  role         String
+  location     String
+  description  String
+  renumeration Int
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   Applications Applications[]

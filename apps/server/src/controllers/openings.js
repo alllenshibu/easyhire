@@ -2,27 +2,33 @@ const prisma = require("../db");
 
 const getAllOpenings = async (req, res) => {
   try {
-    const openings = await prisma.openings.findMany();
-    return res.json({ openings });
+    const openings = await prisma.openings.findMany({
+      include: { company: true },
+    });
+    return res.json({ openings, success: true });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message, success: false });
   }
 };
 
 const addNewOpening = async (req, res) => {
   try {
-    const { title, description, companyId } = req.body;
+    const { companyId, role, location, description, renumeration } = req.body;
 
-    if (!title || !description || !companyId) {
-      return res.status(400).json({ error: "Missing required fields" });
+    if (!companyId || !role || !location || !description || !renumeration) {
+      return res
+        .status(400)
+        .json({ error: "Missing required fields", success: false });
     }
 
     const newOpening = await prisma.openings.create({
       data: {
-        title,
+        role,
+        location,
         description,
-        company: { connect: { id: companyId } },
+        renumeration: Number(renumeration),
+        companyId,
       },
     });
 
@@ -30,10 +36,10 @@ const addNewOpening = async (req, res) => {
       return res.status(400).json({ error: "Job posting not added" });
     }
 
-    return res.status(201).json({ newOpening });
+    return res.status(200).json({ newOpening, success: true });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message, success: false });
   }
 };
 
