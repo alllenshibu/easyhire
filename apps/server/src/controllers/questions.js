@@ -3,7 +3,11 @@ const { QuestionType } = require("@prisma/client");
 
 const getAllQuestions = async (req, res) => {
   try {
-    const questions = await prisma.questions.findMany();
+    const questions = await prisma.questions.findMany({
+      include: {
+        company: true,
+      },
+    });
 
     return res.status(200).json({ questions, success: true });
   } catch (err) {
@@ -21,6 +25,9 @@ const getQuestionsByCompany = async (req, res) => {
     const questions = await prisma.questions.findMany({
       where: {
         companyId,
+      },
+      include: {
+        company: true,
       },
     });
 
@@ -40,6 +47,9 @@ const getQuestionById = async (req, res) => {
     const question = await prisma.questions.findFirst({
       where: {
         id: questionId,
+      },
+      include: {
+        company: true,
       },
     });
 
