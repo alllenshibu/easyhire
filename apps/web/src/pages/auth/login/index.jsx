@@ -48,7 +48,7 @@ export default function SignIn() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_API}/login`,
+        `${process.env.NEXT_PUBLIC_SERVER_API}/auth/coordinators/login`,
         {
           email: data.get("email"),
           password: data.get("password"),
