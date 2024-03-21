@@ -8,7 +8,7 @@ const {
   loginCompany,
 } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
-const {addNewProfile, getProfiles } = require("./controllers/profiles");
+const { addNewProfile, getProfiles } = require("./controllers/profiles");
 const {
   authorize,
   authorizeCoordinator,
@@ -21,6 +21,12 @@ const {
   getAllApplicationsOfAStudent,
   createApplication,
 } = require("./controllers/applications");
+const {
+  getAllQuestions,
+  getQuestionById,
+  getQuestionsByCompany,
+  addNewQuestion,
+} = require("./controllers/questions");
 
 const router = express.Router();
 
@@ -43,6 +49,11 @@ router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
 router.post("/applications", authorize, createApplication);
+
+router.get("/questions", getAllQuestions);
+router.get("/questions/:questionId", getQuestionById);
+router.get("/questions/companies/:companyId", getQuestionsByCompany);
+router.post("/questions", addNewQuestion);
 
 router.get("/user", authorize, getUserDetails);
 router.post("/profiles", authorize, addNewProfile);

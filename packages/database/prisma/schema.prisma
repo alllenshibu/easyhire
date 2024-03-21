@@ -34,15 +34,16 @@ model Students {
 }
 
 model Companies {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  email     String     @unique
+  email     String      @unique
   password  String
   website   String
   logo      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
   Openings  Openings[]
+  Questions Questions[]
 }
 
 model Skills {
@@ -87,4 +88,21 @@ model Applications {
   status    String   @default("pending")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum QuestionType {
+  CODING
+  MCQ
+}
+
+model Questions {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  companyId    String       @db.ObjectId
+  company      Companies    @relation(fields: [companyId], references: [id])
+  question     String
+  options      String[]
+  answer       String?
+  questionType QuestionType @default(CODING)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
