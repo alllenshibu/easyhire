@@ -26,7 +26,10 @@ const {
   getQuestionById,
   getQuestionsByCompany,
   addNewQuestion,
-} = require("./controllers/questions");
+  getAllTests,
+  getTestById,
+  addNewTest,
+} = require("./controllers/tests");
 
 const router = express.Router();
 
@@ -45,15 +48,17 @@ router.post("/openings", authorizeCompany, addNewOpening);
 router.get("/openings", authorize, getAllOpenings);
 
 router.get("/students", authorize, getAllStudents);
-
 router.get("/students/:studentId", authorize, getStudentDetails);
+
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
 router.post("/applications", authorize, createApplication);
 
 router.get("/questions", getAllQuestions);
 router.get("/questions/:questionId", getQuestionById);
-router.get("/questions/companies/:companyId", getQuestionsByCompany);
-router.post("/questions", addNewQuestion);
+
+router.get("/tests", getAllTests);
+router.get("/tests/:testId", getTestById);
+router.post("/tests", addNewTest);
 
 router.get("/user", authorize, getUserDetails);
 router.post("/profiles", authorize, addNewProfile);

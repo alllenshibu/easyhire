@@ -28,22 +28,22 @@ model Students {
   updatedAt    DateTime       @updatedAt
   departmentId String?        @db.ObjectId
   profiles     Profiles[]
-  Applications Applications[]
+  applications Applications[]
   Skills       Skills?        @relation(fields: [skillsId], references: [id])
   skillsId     String?        @db.ObjectId
 }
 
 model Companies {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  email     String      @unique
+  email     String     @unique
   password  String
   website   String
   logo      String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  Openings  Openings[]
-  Questions Questions[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  openings  Openings[]
+  Problems  Problems[]
 }
 
 model Skills {
@@ -51,7 +51,7 @@ model Skills {
   name      String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  Students  Students[]
+  students  Students[]
 }
 
 model Openings {
@@ -64,7 +64,7 @@ model Openings {
   renumeration Int
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  Applications Applications[]
+  applications Applications[]
 }
 
 model Profiles {
@@ -74,7 +74,7 @@ model Profiles {
   bio          String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  Applications Applications[]
+  applications Applications[]
 }
 
 model Applications {
@@ -90,19 +90,39 @@ model Applications {
   updatedAt DateTime @updatedAt
 }
 
-enum QuestionType {
-  CODING
-  MCQ
+model Questions {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  question      String
+  options       String[]
+  answer        Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  TestQuestions TestQuestions[]
 }
 
-model Questions {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
-  companyId    String       @db.ObjectId
-  company      Companies    @relation(fields: [companyId], references: [id])
-  question     String
-  options      String[]
-  answer       String?
-  questionType QuestionType @default(CODING)
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+model Tests {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  testQuestions TestQuestions[]
+}
+
+model TestQuestions {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  test       Tests     @relation(fields: [testId], references: [id])
+  testId     String    @db.ObjectId
+  question   Questions @relation(fields: [questionId], references: [id])
+  questionId String    @db.ObjectId
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Problems {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  companyId String    @db.ObjectId
+  company   Companies @relation(fields: [companyId], references: [id])
+  question  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
