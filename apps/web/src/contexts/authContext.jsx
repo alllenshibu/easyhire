@@ -8,24 +8,24 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-useEffect(() => {
-  async function loadUserFromCookies() {
-    const token = window.localStorage.getItem("token");
-    if (token) {
+  useEffect(() => {
+    async function loadUserFromCookies() {
+      const token = window.localStorage.getItem("token");
+      if (token) {
         //validate token
-      console.log("Got a token in the cookies, let's see if it is valid");
+        console.log("Got a token in the cookies, let's see if it is valid");
 
-      if (router.pathname.startsWith("/auth/")) {
-        router.push("/");
+        if (router.pathname.startsWith("/auth/")) {
+          router.push("/");
+        }
+      } else {
+        if (!router.pathname.startsWith("/auth/")) router.push("/auth/login");
       }
-    } else {
-      router.push("/auth/login");
+      setLoading(false);
+      setToken(token);
     }
-    setLoading(false);
-    setToken(token);
-  }
-  loadUserFromCookies();
-}, []);
+    loadUserFromCookies();
+  }, []);
 
   return (
     <AuthContext.Provider

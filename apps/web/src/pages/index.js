@@ -8,10 +8,24 @@ import Profile from "@/components/Profile";
 import ProfileCard from "@/components/Profile";
 import { ImportContacts } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import { useFetch } from "@/hooks/useFetch";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { loading, get } = useFetch();
+
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const { data, status } = await get("/openings");
+      setJobs(data?.openings);
+    };
+    fetchJobs();
+  }, []);
+
   return (
     <>
       <Dashboard>
@@ -35,8 +49,8 @@ export default function Home() {
               experience="2+ years"
               salary="$80,000 - $100,000 per year"
               description="We are looking for a talented software engineer to join our team and help develop cutting-edge applications."
-              
             />
+
             <JobCard
               logo="https://cdn2.hubspot.net/hubfs/53/image8-2.jpg"
               company="Google"
@@ -47,6 +61,9 @@ export default function Home() {
               salary="$80,000 - $100,000 per year"
               description="We are looking for a talented software engineer to join our team and help develop cutting-edge applications."
             />
+            {jobs.map((job) => (
+              <JobCard key={job.id} role={job.title}  />
+            ))}
           </Box>
 
           <ProfileCard

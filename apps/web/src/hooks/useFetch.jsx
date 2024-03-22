@@ -3,16 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const useFetch = () => {
-    useEffect(() => {
-    const token = window.localStorage.getItem("token");
-    // if (token) {
-    //     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    // }
-    }, []);
+
+
+
 
   const [loading, setLoading] = useState(false);
 
-  const get = async (endpoint = "", headers = {}) => {
+  const get = async (endpoint = "", headers = {},token) => {
     setLoading(true);
     try {
       const { data, status } = await axios.get(
@@ -37,7 +34,7 @@ export const useFetch = () => {
     }
   };
 
-  const post = async (endpoint = "", headers = {}, body = {}) => {
+  const post = async (endpoint = "", headers = {}, body = {},token) => {
     setLoading(true);
     try {
       const { data, status } = await axios.post(
@@ -49,11 +46,7 @@ export const useFetch = () => {
             contentType: "application/json",
             Authorization:
               "Bearer " +
-              (await getAccessTokenSilently({
-                authorizationParams: {
-                  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-                },
-              })),
+             token,
           },
           validateStatus: () => true,
         }
@@ -69,7 +62,7 @@ export const useFetch = () => {
     }
   };
 
-  const put = async (endpoint = "", headers = {}, body = {}) => {
+  const put = async (endpoint = "", headers = {}, body = {},token) => {
     setLoading(true);
     try {
       const { data, status } = await axios.put(
@@ -81,11 +74,7 @@ export const useFetch = () => {
             contentType: "application/json",
             Authorization:
               "Bearer " +
-              (await getAccessTokenSilently({
-                authorizationParams: {
-                  audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-                },
-              })),
+              token,
           },
           validateStatus: () => true,
         }
