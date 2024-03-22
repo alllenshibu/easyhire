@@ -119,10 +119,11 @@ model TestQuestions {
 }
 
 model Problems {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  companyId String    @db.ObjectId
-  company   Companies @relation(fields: [companyId], references: [id])
-  question  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  companyId   String    @db.ObjectId
+  company     Companies @relation(fields: [companyId], references: [id])
+  question    String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

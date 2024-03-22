@@ -72,11 +72,11 @@ const getProblemsByCompany = async (req, res) => {
 
 const addNewProblem = async (req, res) => {
   try {
-    const { companyId, question } = req.body;
+    const { companyId, question, description } = req.body;
 
-    if (!companyId || !question) {
+    if (!companyId || !question || !description) {
       return res.status(400).json({
-        error: "Company ID and question are required",
+        error: "Missing fields",
         success: false,
       });
     }
@@ -84,6 +84,7 @@ const addNewProblem = async (req, res) => {
     const newProblem = await prisma.problems.create({
       data: {
         question,
+        description,
         companyId,
       },
     });
