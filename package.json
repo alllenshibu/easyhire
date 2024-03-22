@@ -23,6 +23,7 @@
   ],
   "dependencies": {
     "@mui/x-charts": "^6.19.8",
-    "@mui/x-data-grid": "^6.19.8"
+    "@mui/x-data-grid": "^6.19.8",
+    "react-beautiful-dnd": "^13.1.1"
   }
 }
