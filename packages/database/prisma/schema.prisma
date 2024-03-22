@@ -101,10 +101,10 @@ model Questions {
 }
 
 model Tests {
-  id        String          @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @updatedAt
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
   testQuestions TestQuestions[]
 }
 

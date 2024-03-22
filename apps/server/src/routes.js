@@ -24,12 +24,16 @@ const {
 const {
   getAllQuestions,
   getQuestionById,
-  getQuestionsByCompany,
-  addNewQuestion,
   getAllTests,
   getTestById,
   addNewTest,
 } = require("./controllers/tests");
+const {
+  getAllProblems,
+  addNewProblem,
+  getProblemById,
+  getProblemsByCompany,
+} = require("./controllers/problems");
 
 const router = express.Router();
 
@@ -59,6 +63,11 @@ router.get("/questions/:questionId", getQuestionById);
 router.get("/tests", getAllTests);
 router.get("/tests/:testId", getTestById);
 router.post("/tests", addNewTest);
+
+router.get("/problems", getAllProblems);
+router.get("/problems/:problemId", getProblemById);
+router.get("/problems/company/:companyId", getProblemsByCompany);
+router.post("/problems", addNewProblem);
 
 router.get("/user", authorize, getUserDetails);
 router.post("/profiles", authorize, addNewProfile);
