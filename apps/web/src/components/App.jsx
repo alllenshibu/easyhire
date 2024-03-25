@@ -16,14 +16,15 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { makeStyles } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
-import { Badge, CardMedia, Container, Grid } from '@mui/material';
-import Card from './Card';
-import { Abc, Add, Business, Feedback, QuestionMark, QuestionMarkOutlined, QuestionMarkRounded, Work, WorkspacePremiumOutlined } from '@mui/icons-material';
+import Business from '@mui/icons-material/Business';
 import BadgeIcon from '@mui/icons-material/Badge';
+import WorkspacePremiumOutlined from '@mui/icons-material/WorkspacePremiumOutlined';
+import QuestionMarkRounded from '@mui/icons-material/QuestionMarkRounded';
+import Feedback from '@mui/icons-material/Feedback';
+import { Badge, Container, Grid } from '@mui/material';
+import Card from './Card';
+import '../App.css';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -83,27 +84,34 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            DashBoard
-          </Typography>
-          <button>hi</button>
-        </Toolbar>
-      </AppBar>
+  <Toolbar sx={{ justifyContent: 'space-between' }}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <IconButton
+        color="inherit"
+        aria-label="open drawer"
+        onClick={handleDrawerOpen}
+        edge="start"
+        sx={{ mr: 2, ...(open && { display: 'none' }) }}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Typography variant="h6" noWrap component="div" style={{ marginLeft: '10px' }}>
+        DashBoard
+      </Typography>
+    </div>
+    <div style={{ display: 'flex', gap: '48px' }}>
+      <IconButton className='analysisButton' size='small'>Analysis</IconButton>
+      <IconButton className='resourceButton' size='small'>Resources</IconButton>
+      <IconButton className='eventButton' size='small'>Event</IconButton>
+    </div>
+  </Toolbar>
+</AppBar>
+
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -131,7 +139,7 @@ export default function PersistentDrawerLeft() {
                   {index === 0 && <Business /> }
                   {index === 1 && <BadgeIcon/>}
                   {index === 2 && <WorkspacePremiumOutlined/>}
-                  </ListItemIcon>
+                </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -143,9 +151,8 @@ export default function PersistentDrawerLeft() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                {index === 0 && <QuestionMarkRounded/>}
-                {index === 1 && <Feedback/>}
-
+                  {index === 0 && <QuestionMarkRounded/>}
+                  {index === 1 && <Feedback/>}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -155,13 +162,11 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-      <Typography paragraph variant='h3' color="black" align='center' >
+        <Typography paragraph variant='h3' color="black" align='center' >
           APPLIED STUDENTS
         </Typography>
         <Typography paragraph>
-
           <Card/>
-          
         </Typography>
       </Main>
     </Box>
