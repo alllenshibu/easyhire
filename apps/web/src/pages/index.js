@@ -10,6 +10,8 @@ import { ImportContacts } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
+import QuizAttendorV2 from "@/components/QuizAttendor";
+import QuizCreatorV2 from "@/components/QuizCreator";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,34 @@ export default function Home() {
     };
     fetchJobs();
   }, []);
+
+  const renderJobCards = () => {
+    if (jobs && jobs.length > 0) {
+      return jobs.map((job) => (
+        <JobCard key={job.id} role={job.title} />
+      ));
+    } else {
+      return null;
+    }
+  };
+  
+  // const sampleQuestions = [
+  //   {
+  //     question: "What is the capital of France?",
+  //     options: ["London", "Berlin", "Paris", "Madrid"],
+  //     correctAnswer: 2, 
+  //   },
+  //   {
+  //     question: "Which planet is known as the Red Planet?",
+  //     options: ["Mars", "Jupiter", "Venus", "Mercury"],
+  //     correctAnswer: 0, 
+  //   },
+  //   {
+  //     question: "What is the largest mammal?",
+  //     options: ["Elephant", "Whale", "Giraffe", "Hippopotamus"],
+  //     correctAnswer: 1,
+  //   },
+  // ];
 
   return (
     <>
@@ -61,9 +91,13 @@ export default function Home() {
               salary="$80,000 - $100,000 per year"
               description="We are looking for a talented software engineer to join our team and help develop cutting-edge applications."
             />
-            {jobs.map((job) => (
-              <JobCard key={job.id} role={job.title}  />
-            ))}
+            {
+            renderJobCards()
+            // jobs.map((job) => (
+            //   <JobCard key={job.id} role={job.title}  />
+            // ))
+            
+            }
           </Box>
 
           <ProfileCard
