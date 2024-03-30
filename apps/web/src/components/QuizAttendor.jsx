@@ -9,13 +9,63 @@ import {
   Typography,
 } from "@mui/material";
 
-const QuizAttendee = ({ questions }) => {
+const QuizAttendee = () => {
+  const [test, setTest] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [score, setScore] = useState(0);
   const [visitedQuestions, setVisitedQuestions] = useState([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [clearButtonEnabled, setClearButtonEnabled] = useState(true);
+  const [selectedTestId, setSelectedTestId] = useState(null);
+
+
+  useEffect(() => {
+    const fetchTest = async (testId) => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/tests/${testId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch test");
+        }
+        const data = await response.json();
+        setTest(data.test);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setError("Something went wrong while fetching test");
+        setIsLoading(false);
+      }
+    };
+  
+    if (selectedTestId) {
+      fetchTest(selectedTestId);
+    }
+  }, [selectedTestId]);
+
+  useEffect(() => {
+    const fetchTestIds = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/tests`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch test IDs");
+        }
+        const data = await response.json();
+        const { testIds,names,numberOfQuestions} = data;
+        
+        const selectedTestId = testIds[0]; 
+        fetchTest(selectedTestId);
+      } catch (error) {
+        console.error(error);
+        setError("Something went wrong while fetching test IDs");
+        setIsLoading(false);
+      }
+    };
+  
+    fetchTestIds();
+  }, []);
+
 
   const handleOptionChange = (e) => {
     const updatedOptions = { ...selectedOptions };
@@ -24,11 +74,11 @@ const QuizAttendee = ({ questions }) => {
     if (!visitedQuestions.includes(currentQuestionIndex)) {
       setVisitedQuestions([...visitedQuestions, currentQuestionIndex]);
     }
-    setClearButtonEnabled(true)
+    setClearButtonEnabled(true);
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex === questions.length - 1) {
+    if (currentQuestionIndex === test.questions.length - 1) {
       setQuizCompleted(true);
     } else {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
@@ -47,19 +97,21 @@ const QuizAttendee = ({ questions }) => {
   };
 
   useEffect(() => {
+    if (!test) return;
+
     let newScore = 0;
-    for (let i = 0; i < questions.length; i++) {
-      const correctAnswer = questions[i].correctAnswer;
+    for (let i = 0; i < test.questions.length; i++) {
+      const correctAnswer = test.questions[i].answer;
       const selectedOption = selectedOptions[i];
       if (selectedOption === correctAnswer) {
         newScore++;
       }
     }
     setScore(newScore);
-  }, [selectedOptions]);
+  }, [selectedOptions, test]);
 
   const renderQuestion = () => {
-    const question = questions[currentQuestionIndex];
+    const question = test.questions[currentQuestionIndex];
     const selectedOption = selectedOptions[currentQuestionIndex];
 
     return (
@@ -97,7 +149,7 @@ const QuizAttendee = ({ questions }) => {
             <Button
               variant="contained"
               onClick={handleClearOption}
-              disabled={!clearButtonEnabled} 
+              disabled={!clearButtonEnabled}
               className="mr-2"
             >
               Clear Option
@@ -107,14 +159,14 @@ const QuizAttendee = ({ questions }) => {
               onClick={handleNextQuestion}
               disabled={false}
             >
-              {currentQuestionIndex === questions.length - 1
+              {currentQuestionIndex === test.questions.length - 1
                 ? "Finish Quiz"
                 : "Next Question"}
             </Button>
           </div>
         </div>
         <div className="flex flex-col ml-4">
-          {questions.map((_, index) => (
+          {test.questions.map((_, index) => (
             <button
               key={index}
               className={`h-8 w-8 border border-solid border-gray-300 rounded-md mb-2 ${
@@ -143,11 +195,19 @@ const QuizAttendee = ({ questions }) => {
           Quiz Completed!
         </Typography>
         <Typography variant="h5" className="mb-4">
-          Your Score: {score}/{questions.length}
+          Your Score: {score}/{test.questions.length}
         </Typography>
       </div>
     );
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <Card>
