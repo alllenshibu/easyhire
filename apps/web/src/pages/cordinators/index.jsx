@@ -7,6 +7,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Paper from '@mui/material/Paper';
 import { Button, CardMedia } from '@mui/material';
+import CoordiLayout from '@/Layouts/CoordiLayout';
 
 
 export default function SpacingGrid() {
@@ -21,6 +22,7 @@ export default function SpacingGrid() {
 `;
 
   return (
+    <CoordiLayout>
     <Grid sx={{ flexGrow: 10 }} container spacing={0}>
       <Grid item xs={12}>
         <Grid container justifyContent="center" spacing={10}>
@@ -49,5 +51,6 @@ export default function SpacingGrid() {
         </Grid>
       </Grid>
     </Grid>
+    </CoordiLayout>
   );
 }
