@@ -11,13 +11,6 @@ export default function Index() {
   return (
     <CoordiLayout>
       <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
 
       
     </CoordiLayout>
