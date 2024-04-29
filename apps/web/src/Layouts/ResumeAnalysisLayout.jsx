@@ -17,13 +17,11 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Link from "@mui/material/Link";
 import Mail from "@mui/icons-material/Mail";
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "../components/Coordinatorslist";
+import { mainListItems, secondaryListItems } from "../components/listItems";
 import { Inbox, RouteRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -131,12 +129,10 @@ const Dashboard = ({ children }) => {
         <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
-          
             sx={{
               pr: "24px", // keep right padding when drawer closed
             }}
           >
-            
             <IconButton
               edge="start"
               color="inherit"
@@ -147,7 +143,6 @@ const Dashboard = ({ children }) => {
                 ...(open && { display: "none" }),
               }}
             >
-                
               <MenuIcon />
             </IconButton>
             <Typography
@@ -159,30 +154,6 @@ const Dashboard = ({ children }) => {
             >
               Resume Analyser
             </Typography>
-            
-            
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-       <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginRight: '10px' }} // Adjust margin as needed
-      >
-        Add Events
-      </Button>
-    </Box>
-
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-       <Button
-        variant="contained"
-        color="primary"
-        startIcon={<AddIcon />}
-        sx={{ marginRight: '10px' }} // Adjust margin as needed
-      >
-        Add Resources
-      </Button>
-    </Box>
-            
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
