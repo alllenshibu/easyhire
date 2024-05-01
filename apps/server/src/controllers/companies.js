@@ -3,6 +3,8 @@ const prisma = require("../db");
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await prisma.companies.findMany({});
+    //return as array 
+  
     return res.json({ companies });
   } catch (err) {
     console.error(err);
