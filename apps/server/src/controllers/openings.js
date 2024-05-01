@@ -14,7 +14,15 @@ const getAllOpenings = async (req, res) => {
 
 const addNewOpening = async (req, res) => {
   try {
-    const { companyId, role, location, description, renumeration } = req.body;
+    const {
+      companyId,
+      role,
+      location,
+      description,
+      renumeration,
+      type,
+      experience,
+    } = req.body;
 
     if (!companyId || !role || !location || !description || !renumeration) {
       return res
@@ -29,6 +37,8 @@ const addNewOpening = async (req, res) => {
         description,
         renumeration: Number(renumeration),
         companyId,
+        type,
+        experience,
       },
     });
 

@@ -58,7 +58,9 @@ model Openings {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   company      Companies      @relation(fields: [companyId], references: [id])
   companyId    String         @db.ObjectId
-  role         String
+  type         String         @default("internship")
+  experience   String         @default("0-1 years")
+  role         String         @default("Front End Developer")
   location     String
   description  String
   renumeration Int

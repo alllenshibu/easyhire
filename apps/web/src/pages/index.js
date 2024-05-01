@@ -23,6 +23,7 @@ export default function Home() {
   useEffect(() => {
     const fetchJobs = async () => {
       const { data, status } = await get("/openings");
+      console.log(data?.openings)
       setJobs(data?.openings);
     };
     fetchJobs();
@@ -31,30 +32,26 @@ export default function Home() {
   const renderJobCards = () => {
     if (jobs && jobs.length > 0) {
       return jobs.map((job) => (
-        <JobCard key={job.id} role={job.title} />
+        <JobCard
+          logo="https://cdn2.hubspot.net/hubfs/53/image8-2.jpg"
+          company={job.company.name}
+          key={job.id}
+          role={job.role}
+          location={job.location}
+          experience={job.experience}
+          description={job.description}
+          salary={job.renumeration}
+          type={job.type}
+          
+        />
       ));
     } else {
       return null;
     }
   };
+
   
-  // const sampleQuestions = [
-  //   {
-  //     question: "What is the capital of France?",
-  //     options: ["London", "Berlin", "Paris", "Madrid"],
-  //     correctAnswer: 2, 
-  //   },
-  //   {
-  //     question: "Which planet is known as the Red Planet?",
-  //     options: ["Mars", "Jupiter", "Venus", "Mercury"],
-  //     correctAnswer: 0, 
-  //   },
-  //   {
-  //     question: "What is the largest mammal?",
-  //     options: ["Elephant", "Whale", "Giraffe", "Hippopotamus"],
-  //     correctAnswer: 1,
-  //   },
-  // ];
+  
 
   return (
     <>
