@@ -10,6 +10,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import PersonIcon from "@mui/icons-material/Person";
+import { NotificationAddRounded, NotificationImportant, NotificationImportantOutlined } from "@mui/icons-material";
 
 
 export const mainListItems = (
@@ -31,6 +32,12 @@ export const mainListItems = (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Applications" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <NotificationImportant />
+      </ListItemIcon>
+      <ListItemText primary="Notifications" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>
