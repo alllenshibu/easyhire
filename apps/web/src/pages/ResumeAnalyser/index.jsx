@@ -43,6 +43,7 @@ export default function Index() {
               variant="contained"
               tabIndex={-1}
               startIcon={<CloudUploadIcon />}
+              name="fileupload"
             >
               Upload file
               <VisuallyHiddenInput type="file" />
