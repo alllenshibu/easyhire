@@ -26,7 +26,12 @@ export default function OpeningById() {
       if (status === 200) {
         showAlert("Successfully applied");
       } else {
-        showAlert("Failed to apply");
+        showAlert({
+          title: "Error",
+          type: "foreground",
+          description: "inserting course",
+          variant: "destructive",
+        });
       }
       console.log(data);
     } catch (err) {
@@ -54,6 +59,7 @@ export default function OpeningById() {
     <Layout>
       <div>{JSON.stringify(opening)}</div>
       <button onClick={applyForOpening}>Apply</button>
+      <h1>Profile Match if possible time </h1>
     </Layout>
   );
 }
