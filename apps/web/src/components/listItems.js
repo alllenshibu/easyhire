@@ -32,7 +32,13 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="/openings">
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Openings" />
+    </ListItemButton>
+    <ListItemButton href="/applications">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

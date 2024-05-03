@@ -12,6 +12,28 @@ const getAllOpenings = async (req, res) => {
   }
 };
 
+const getOpeningById = async (req, res) => {
+  try {
+    const { openingId } = req.params;
+    if (!openingId) {
+      return res.status(400).json({ error: "Opening ID is required" });
+    }
+
+    const opening = await prisma.openings.findUnique({
+      where: { id: openingId },
+    });
+
+    if (!opening) {
+      return res.status(404).json({ error: "Opening not found" });
+    }
+
+    return res.json({ opening, success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message, success: false });
+  }
+};
+
 const addNewOpening = async (req, res) => {
   try {
     const {
@@ -55,5 +77,6 @@ const addNewOpening = async (req, res) => {
 
 module.exports = {
   getAllOpenings,
+  getOpeningById,
   addNewOpening,
 };

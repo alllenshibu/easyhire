@@ -5,11 +5,16 @@ const { getAllCompanies, addNewCompany } = require("./controllers/companies");
 const { addNewProfile, getProfiles } = require("./controllers/profiles");
 const { authorize } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
-const { addNewOpening, getAllOpenings } = require("./controllers/openings");
+const {
+  addNewOpening,
+  getAllOpenings,
+  getOpeningById,
+} = require("./controllers/openings");
 const { getAllStudents, getStudentDetails } = require("./controllers/students");
 const {
   getAllApplicationsOfAStudent,
   createApplication,
+  getApplicationById,
 } = require("./controllers/applications");
 const {
   getAllQuestions,
@@ -40,11 +45,13 @@ router.get("/companies", authorize, getAllCompanies);
 
 router.post("/openings", authorize, addNewOpening);
 router.get("/openings", authorize, getAllOpenings);
+router.get("/openings/:openingId", authorize, getOpeningById);
 
 router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
 
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
+router.get("/applications/:applicationId", authorize, getApplicationById);
 router.post("/applications", authorize, createApplication);
 
 router.get("/questions", getAllQuestions);

@@ -34,6 +34,8 @@ import {
 } from "@mui/material";
 import { green, blue } from "@mui/material/colors";
 
+import { ToastContainer, toast } from "react-toastify";
+
 function Copyright(props) {
   return (
     <Typography
@@ -122,6 +124,10 @@ const Dashboard = ({ children }) => {
   const toggleDrawerCart = () => () => {
     setOpenCart(!openCart);
   };
+
+  useEffect(() => {
+    toast.success("Welcome to the dashboard");
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
