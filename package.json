@@ -30,6 +30,7 @@
     "@mui/x-charts": "^6.19.8",
     "@mui/x-data-grid": "^6.19.8",
     "react-beautiful-dnd": "^13.1.1",
-    "react-toastify": "^10.0.5"
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^9.0.3"
   }
 }
