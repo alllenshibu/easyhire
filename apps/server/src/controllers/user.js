@@ -4,7 +4,7 @@ const getUserDetails = async (req, res) => {
   try {
     const { user } = req;
 
-    const userDetails = await prisma.students.findUnique({
+    const userDetails = await prisma.users.findUnique({
       where: {
         id: user.id,
       },

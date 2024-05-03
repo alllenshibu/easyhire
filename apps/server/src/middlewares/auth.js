@@ -5,9 +5,7 @@ const prisma = require("./../db");
 //
 const authorize = async (req, res, next) => {
   try {
-    const token = req.headers.authorization[0].split(" ")[1];
-
-    console.log(req.headers.authorization);
+    const token = req.headers.authorization.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
@@ -18,8 +16,6 @@ const authorize = async (req, res, next) => {
         id: token,
       },
     });
-
-    user = user[0];
 
     if (!user) {
       return res.status(401).json({ error: "Unauthorized" });

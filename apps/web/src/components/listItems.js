@@ -10,8 +10,13 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import PersonIcon from "@mui/icons-material/Person";
-import { NotificationAddRounded, NotificationImportant, NotificationImportantOutlined } from "@mui/icons-material";
+import {
+  NotificationAddRounded,
+  NotificationImportant,
+  NotificationImportantOutlined,
+} from "@mui/icons-material";
 
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const mainListItems = (
   <React.Fragment>
@@ -76,6 +81,21 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
+    </ListItemButton>
+    <ListItemButton
+      onClick={() => {
+        try {
+          localStorage.removeItem("token");
+          window.location.href = "/auth/login";
+        } catch (err) {
+          console.error(err);
+        }
+      }}
+    >
+      <ListItemIcon>
+        <LogoutIcon />
+      </ListItemIcon>
+      <ListItemText primary="Log out" />
     </ListItemButton>
   </React.Fragment>
 );
