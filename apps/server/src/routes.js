@@ -29,6 +29,11 @@ const {
   getProblemById,
   getProblemsByCompany,
 } = require("./controllers/problems");
+const {
+  getAllGroups,
+  createNewGroup,
+  getGroupById,
+} = require("./controllers/groups");
 
 const router = express.Router();
 
@@ -39,6 +44,10 @@ router.post("/auth/companies/login", loginCompany);
 
 router.post("/auth/students/signup", signup);
 router.post("/auth/students/login", login);
+
+router.get("/groups", getAllGroups);
+router.get("/groups/:groupId", getGroupById);
+router.post("/groups", createNewGroup);
 
 router.post("/companies", authorize, addNewCompany);
 router.get("/companies", authorize, getAllCompanies);
