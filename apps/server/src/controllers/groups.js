@@ -15,14 +15,30 @@ const getGroupById = async (req, res) => {
   try {
     const { groupId } = req.params;
 
-    const group = await prisma.groups.findUnique({
+    let group = await prisma.groups.findUnique({
       where: {
         id: groupId,
       },
       include: {
-        groupMembers: true,
+        groupMembers: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
+
+    if (!group) {
+      return res.status(404).json({ error: "Group not found" });
+    }
+
+    group.members = [];
+
+    for (let member of group.groupMembers) {
+      group.members.push(member.user);
+    }
+
+    group.numberOfMembers = group.groupMembers.length;
 
     return res.status(200).json({ group });
   } catch (err) {

@@ -1,42 +1,39 @@
 import Layout from "@/Layouts/Layout";
-import { useFetch } from "@/hooks/useFetch";
 import { useAlert } from "@/hooks/useAlert";
+import { useFetch } from "@/hooks/useFetch";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function ApplicationById() {
+export default function OpeningById() {
   const router = useRouter();
-  const { applicationId } = router.query;
+  const { openingId } = router.query;
 
   const { get } = useFetch();
   const showAlert = useAlert();
-
-  const [application, setApplication] = useState([]);
+  const [opening, setOpening] = useState([]);
 
   useEffect(() => {
-    if (!applicationId) return;
-    const fetchApplication = async () => {
+    if (!openingId) return;
+    const fetchOpening = async () => {
       try {
-        const { data, status } = await get(
-          `/applications/${applicationId}`,
-          {}
-        );
+        const { data, status } = await get(`/openings/${openingId}`, {});
         if (status !== 200) {
           showAlert("Something went wrong", "Failed to fetch details");
         }
-        setApplication(data?.application);
+        setOpening(data?.opening);
       } catch (err) {
         console.error(err);
       }
     };
-    fetchApplication();
-  }, [applicationId]);
+    fetchOpening();
+  }, [openingId]);
 
   return (
     <Layout>
-      <div>{JSON.stringify(application)}</div>
-      <h1>Show status</h1>
+      <div>{JSON.stringify(opening)}</div>
+      <h1>Fetch details</h1>
     </Layout>
   );
 }
