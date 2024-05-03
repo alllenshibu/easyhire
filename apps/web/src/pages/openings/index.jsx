@@ -5,6 +5,7 @@ import { useFetch } from '@/hooks/useFetch';
 import { Input } from '@/components/ui/input';
 import { Card, CardTitle, CardDescription, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Search } from '@mui/icons-material';
 
 export default function Openings() {
     const router = useRouter();
@@ -44,9 +45,9 @@ export default function Openings() {
                     <div className="flex flex-col items-center justify-center space-y-6 lg:space-y-10">
                         <div className="w-full max-w-xl">
                             <form className="relative">
-                                <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5" />
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5" />
                                 <Input
-                                    className="w-full rounded-md border border-gray-200 bg-white px-12 py-3 text-white shadow-sm transition-colors focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900  "
+                                    className="w-full rounded-md border border-gray-200 bg-white px-12 py-3 text-black shadow-sm transition-colors focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900  "
                                     placeholder="Search job openings..."
                                     type="search"
                                     // Update search query state on input change
@@ -82,20 +83,4 @@ export default function Openings() {
 }
 
 // SearchIcon component
-function SearchIcon(props) {
-    return (
-        <svg {...props}
-             xmlns="http://www.w3.org/2000/svg"
-             width="24"
-             height="24"
-             viewBox="0 0 24 24"
-             fill="none"
-             strokeWidth="2"
-             strokeLinecap="round"
-             strokeLinejoin="round"
-        >
-            <circle cx="11" cy="11" r="8" />
-            <path d="M21 21l-4.3-4.3" />
-        </svg>
-    );
-}
+
