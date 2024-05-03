@@ -12,6 +12,11 @@ enum Role {
   STUDENT
 }
 
+enum JobType {
+  INTERNSHIP
+  FULLTIME
+}
+
 model Users {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   firstName    String
@@ -72,43 +77,43 @@ model Skills {
 }
 
 model Openings {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  company      Companies      @relation(fields: [companyId], references: [id])
-  companyId    String         @db.ObjectId
-  type         String         @default("internship")
-  experience   String         @default("0-1 years")
-  role         String         @default("Front End Developer")
-  location     String
-  description  String
-  remuneration Int
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  applications Applications[]
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  company          Companies      @relation(fields: [companyId], references: [id])
+  companyId        String         @db.ObjectId
+  type             String         @default("internship")
+  experience       String         @default("0-1 years")
+  role             String         @default("Front End Developer")
+  location         String
+  description      String
+  responsibilities String[]
+  requirements     String[]
+  remuneration     Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  applications     Applications[]
 }
 
 model Profiles {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  user         Users          @relation(fields: [userId], references: [id])
-  userId       String         @db.ObjectId
-  bio          String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  applications Applications[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      Users    @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  bio       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // applications Applications[]
 }
 
 model Applications {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  users      Users     @relation(fields: [userId], references: [id])
-  userId     String    @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      Users    @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
   // profile   Profiles @relation(fields: [profileId], references: [id])
   // profileId String   @db.ObjectId
-  opening    Openings  @relation(fields: [openingId], references: [id])
-  openingId  String    @db.ObjectId
-  status     String    @default("pending")
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Profiles   Profiles? @relation(fields: [profilesId], references: [id])
-  profilesId String?   @db.ObjectId
+  opening   Openings @relation(fields: [openingId], references: [id])
+  openingId String   @db.ObjectId
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Questions {

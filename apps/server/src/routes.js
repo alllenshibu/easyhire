@@ -9,6 +9,7 @@ const {
   addNewOpening,
   getAllOpenings,
   getOpeningById,
+  editOpening,
 } = require("./controllers/openings");
 const { getAllStudents, getStudentDetails } = require("./controllers/students");
 const {
@@ -54,6 +55,7 @@ router.get("/companies", authorize, getAllCompanies);
 
 router.post("/openings", authorize, addNewOpening);
 router.get("/openings", authorize, getAllOpenings);
+router.put("/openings/:openingId", authorize, editOpening);
 router.get("/openings/:openingId", authorize, getOpeningById);
 
 router.get("/students", authorize, getAllStudents);
