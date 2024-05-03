@@ -1,6 +1,7 @@
 import Layout from "@/Layouts/Layout";
-import { useFetch } from "@/hooks/useFetch";
 import { useAlert } from "@/hooks/useAlert";
+import { useFetch } from "@/hooks/useFetch";
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -11,7 +12,6 @@ export default function OpeningById() {
 
   const { get, post } = useFetch();
   const showAlert = useAlert();
-
   const [opening, setOpening] = useState([]);
 
   const applyForOpening = async () => {
