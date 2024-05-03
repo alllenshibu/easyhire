@@ -16,24 +16,30 @@ export default function OpeningById() {
     const showAlert = useAlert();
     const [opening, setOpening] = useState(null); // Opening state initialized as null
 
-    const applyForOpening = async () => {
-        try {
-            const { data, status } = await post(
-                `/applications`,
-                {
-                    openingId, // Opening ID from the query parameter
-                }
-            );
-            if (status === 200) {
-                showAlert("Successfully applied", "success");
-            } else {
-                showAlert("Failed to apply", "error");
-            }
-        } catch (err) {
-            console.error(err);
-            showAlert("Failed to apply", "error");
+  const applyForOpening = async () => {
+    try {
+      const { data, status } = await post(
+        `/applications`,
+        {},
+        {
+          openingId,
         }
-    };
+      );
+      if (status === 200) {
+        showAlert("Successfully applied");
+      } else {
+        showAlert({
+          title: "Error",
+          type: "foreground",
+          description: "inserting course",
+          variant: "destructive",
+        });
+      }
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
     useEffect(() => {
         if (!openingId) return;
