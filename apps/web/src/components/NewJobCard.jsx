@@ -49,12 +49,12 @@ const JobCard = ({
               xs={12}
               sm={8}
             >
-              <CardMedia
+              {/* <CardMedia
                 component="img"
                 sx={{ width: 100, height: 100 }}
                 image={logo}
                 alt="company logo"
-              />
+              /> */}
               <Grid item xs={12} sm={8}>
                 <Typography variant="h6" component="div">
                   {company}

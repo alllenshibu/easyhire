@@ -82,7 +82,9 @@ const CardItem = ({ company, deadline, role, buttonText }) => (
     </div>
     <div className="text-sm text-gray-500  mt-1">{role}</div>
     <div className="mt-3">
-      <Button size="sm" variant="outline">{buttonText}</Button>
+      <button className="text-sm outline-1 outline-gray-200 bg-white inline-flex items-center px-3 py-1.5 border rounded-lg text-black hover:bg-gray-100 hover:text-gray-900 shadow-none outline-none">
+        {buttonText}
+      </button>
     </div>
   </div>
 );
@@ -96,7 +98,9 @@ const TimelineItem = ({ company, date, event, buttonText }) => (
     </div>
     <div className="text-sm text-gray-500  mt-1">{event}</div>
     <div className="mt-3">
-      <Button size="sm" variant="outline">{buttonText}</Button>
+      <button className="text-sm outline-1 outline-gray-200 bg-white inline-flex items-center px-3 py-1.5 border rounded-lg text-black hover:bg-gray-100 hover:text-gray-900 shadow-none outline-none ">
+        {buttonText}
+      </button>
     </div>
   </div>
 );
