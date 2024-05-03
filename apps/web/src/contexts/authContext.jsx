@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = window.localStorage.getItem("token");
@@ -27,9 +28,16 @@ export const AuthProvider = ({ children }) => {
     loadUserFromCookies();
   }, []);
 
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    setUser(null);
+    setToken(null);
+    router.push("/auth/login");
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, loading, token }}
+      value={{ isAuthenticated: !!user, user, loading, token, logout }}
     >
       {children}
     </AuthContext.Provider>

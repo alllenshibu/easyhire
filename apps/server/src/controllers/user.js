@@ -4,9 +4,9 @@ const getUserDetails = async (req, res) => {
   try {
     const { user } = req;
 
-    const userDetails = await prisma.users.findUnique({
+    const userDetails = await prisma.students.findUnique({
       where: {
-        id: token,
+        id: user.id,
       },
     });
 
@@ -16,7 +16,7 @@ const getUserDetails = async (req, res) => {
         .json({ error: "Something went wrong", success: false });
     }
 
-    return res.status(200).json({ userDetails, success: true });
+    return res.status(200).json({ user: userDetails, success: true });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: err.message, success: false });

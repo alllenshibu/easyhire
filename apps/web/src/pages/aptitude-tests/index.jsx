@@ -21,8 +21,8 @@ const index = () => {
         }
         setData(response.data.tests);
         setLoading(false);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
         setError("Something went wrong while fetching tests");
         setLoading(false);
       }

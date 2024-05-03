@@ -7,17 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Coodinators {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  lastName  String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum Role {
+  ADMIN
+  STUDENT
 }
 
-model Students {
+model Users {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   firstName    String
   lastName     String
@@ -26,6 +21,7 @@ model Students {
   password     String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
+  roles        Role[]         @default([STUDENT])
   departmentId String?        @db.ObjectId
   profiles     Profiles[]
   applications Applications[]
@@ -37,7 +33,6 @@ model Companies {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   email     String     @unique
-  password  String
   website   String
   logo      String
   createdAt DateTime   @default(now())
@@ -47,11 +42,11 @@ model Companies {
 }
 
 model Skills {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  students  Students[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     Users[]
 }
 
 model Openings {
@@ -71,8 +66,8 @@ model Openings {
 
 model Profiles {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  student      Students       @relation(fields: [studentId], references: [id])
-  studentId    String         @db.ObjectId
+  user         Users          @relation(fields: [userId], references: [id])
+  userId       String         @db.ObjectId
   bio          String
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -81,7 +76,7 @@ model Profiles {
 
 model Applications {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  student   Students @relation(fields: [studentId], references: [id])
+  students  Users    @relation(fields: [studentId], references: [id])
   studentId String   @db.ObjectId
   profile   Profiles @relation(fields: [profileId], references: [id])
   profileId String   @db.ObjectId

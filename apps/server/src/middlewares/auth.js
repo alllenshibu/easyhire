@@ -5,34 +5,19 @@ const prisma = require("./../db");
 //
 const authorize = async (req, res, next) => {
   try {
-    next();
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-};
+    const token = req.headers.authorization[0].split(" ")[1];
 
-const authorizeCoordinator = async (req, res, next) => {
-  try {
-    let user = await prisma.coodinators.findMany({});
+    console.log(req.headers.authorization);
 
-    user = user[0];
-
-    if (!user) {
+    if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    req.user = user;
-    next();
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-};
-
-const authorizeCompany = async (req, res, next) => {
-  try {
-    let user = await prisma.companies.findMany({});
+    let user = await prisma.users.findUnique({
+      where: {
+        id: token,
+      },
+    });
 
     user = user[0];
 
@@ -50,6 +35,4 @@ const authorizeCompany = async (req, res, next) => {
 
 module.exports = {
   authorize,
-  authorizeCoordinator,
-  authorizeCompany,
 };
