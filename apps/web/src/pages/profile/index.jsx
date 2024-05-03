@@ -1,7 +1,9 @@
+import React from "react";
 import Layout from "@/Layouts/Layout";
+import ResumeForm from "@/components/Resumeform";
 import { useFetch } from "@/hooks/useFetch";
 import { useEffect, useState } from "react";
-
+import { Box, Container, Typography, Paper } from "@mui/material";
 export default function index() {
   const { get } = useFetch();
 
@@ -29,7 +31,27 @@ export default function index() {
   return (
     <Layout>
       <div>{JSON.stringify(user)}</div>
-      <h1>Editing option venam</h1>
+      <React.Fragment>
+        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+          <Paper
+            variant="outlined"
+            sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+          >
+            <Typography component="h1" variant="h4" align="center">
+              Profile
+            </Typography>
+
+            <React.Fragment>
+              <ResumeForm
+                firstName={user.firstName}
+                lastName={user.lastName}
+                phone={user.phone}
+                email={user.email}
+              />
+            </React.Fragment>
+          </Paper>
+        </Container>
+      </React.Fragment>
     </Layout>
   );
 }

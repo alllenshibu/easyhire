@@ -8,7 +8,17 @@ import {
   Autocomplete,
 } from "@mui/material";
 
-export default function ResumeForm() {
+export default function ResumeForm({
+  firstName,
+  lastName,
+  phone,
+  email,
+  engineeringStream,
+  cgpa,
+  graduationYear,
+  backlogs,
+  skills,
+}) {
   async function getUser() {
     try {
       const { data, error } = await axios.get(
@@ -27,6 +37,8 @@ export default function ResumeForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    phone: "",
+    email: "",
     engineeringStream: "",
     cgpa: "",
     graduationYear: "",
@@ -62,13 +74,14 @@ export default function ResumeForm() {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
+      {/* <Typography variant="h6" gutterBottom>
         Resume Information
-      </Typography>
+      </Typography> */}
       <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
+              value={firstName}
               required
               id="firstName"
               name="firstName"
@@ -80,10 +93,35 @@ export default function ResumeForm() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              value={lastName}
               required
               id="lastName"
               name="lastName"
               label="Last Name"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              value={phone}
+              required
+              id="phone"
+              name="phone"
+              label="Phone"
+              fullWidth
+              variant="standard"
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              value={email}
+              required
+              id="email"
+              name="email"
+              label="Email"
               fullWidth
               variant="standard"
               onChange={handleChange}
@@ -156,7 +194,7 @@ export default function ResumeForm() {
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" sx={{ mt: 3, ml: 1 }}>
-              {resumeSaved ? "Resume Saved" : "Save Resume"}
+              {resumeSaved ? "Resume Saved" : "Save Profile"}
             </Button>
           </Grid>
         </Grid>
