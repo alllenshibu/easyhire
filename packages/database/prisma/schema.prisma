@@ -24,6 +24,7 @@ model Users {
   phone        String         @unique
   email        String         @unique
   password     String
+  resume       String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   roles        Role[]         @default([STUDENT])

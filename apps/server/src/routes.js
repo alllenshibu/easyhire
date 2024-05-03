@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 
 const { loginCompany, signup, login } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
@@ -35,8 +36,20 @@ const {
   createNewGroup,
   getGroupById,
 } = require("./controllers/groups");
+const { uploadResume } = require("./controllers/resume");
 
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./temp"); // Specify the destination directory for uploaded files
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`); // Generate a unique filename for the uploaded file
+  },
+});
+
+const upload = multer({ storage: storage });
 
 router.post("/auth/coordinators/signup", signup);
 router.post("/auth/coordinators/login", login);
@@ -60,6 +73,12 @@ router.get("/openings/:openingId", authorize, getOpeningById);
 
 router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
+router.post(
+  "/students/:id/resume",
+  authorize,
+  upload.single("resume"),
+  uploadResume
+);
 
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
 router.get("/applications/:applicationId", authorize, getApplicationById);
