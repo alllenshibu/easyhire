@@ -1,8 +1,9 @@
+import QuizAttendee from '@/components/QuizAttendor'
 import React from 'react'
 
 const index = () => {
   return (
-    <div>index</div>
+    <div><QuizAttendee/></div>
   )
 }
 
