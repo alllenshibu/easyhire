@@ -46,7 +46,7 @@ export default function Openings() {
                             <form className="relative">
                                 <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5" />
                                 <Input
-                                    className="w-full rounded-md border border-gray-200 bg-white px-12 py-3 text-white shadow-sm transition-colors focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:focus:border-gray-50 dark:focus:ring-gray-50"
+                                    className="w-full rounded-md border border-gray-200 bg-white px-12 py-3 text-white shadow-sm transition-colors focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900  "
                                     placeholder="Search job openings..."
                                     type="search"
                                     // Update search query state on input change
@@ -69,7 +69,7 @@ export default function Openings() {
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <Button size="sm">Apply Now</Button>
+                                        <Button size="sm" variant="outline">Apply Now</Button>
                                     </CardContent>
                                 </Card>
                             ))}
