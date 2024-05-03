@@ -69,7 +69,7 @@ export default function Openings() {
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
-                                        <Button size="sm" variant="outline">Apply Now</Button>
+                                        <Button size="sm" variant="outline">More Info</Button>
                                     </CardContent>
                                 </Card>
                             ))}

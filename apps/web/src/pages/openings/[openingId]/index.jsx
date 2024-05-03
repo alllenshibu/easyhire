@@ -114,7 +114,7 @@ export default function OpeningById() {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white dark:bg-gray-100 rounded-lg p-6">
+                    <div className="bg-white rounded-lg p-6">
                         <h2 className="text-2xl font-bold mb-4">Apply Now</h2>
                         <form
                             className="space-y-4"
