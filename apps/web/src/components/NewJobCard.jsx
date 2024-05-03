@@ -26,7 +26,7 @@ const JobCard = ({
   const router = useRouter();
 
   return (
-    <Card  sx={{minWidth:800, maxWidth: 800, display: "flex", flexDirection: "column" }}>
+    <Card sx={{ minWidth:600,maxWidth: 800, display: "flex", flexDirection: "column" }}>
       <CardContent>
         <Box container spacing={2}>
           <Box

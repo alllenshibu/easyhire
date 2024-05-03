@@ -108,10 +108,10 @@ const TimelineItem = ({ company, date, event, buttonText }) => (
 // Notifications component
 export function Notifications() {
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-100 font-sans ">
+    <div className="flex flex-col w-full min-h-screen bg-gray-100  ">
       <Header>
         <Link
-          className="flex  items-center gap-2 text-lg font-semibold text-gray-900  sm:text-base font-sans"
+          className="flex  items-center gap-2 text-lg font-semibold text-gray-900  sm:text-base "
           href="#"
         >
           <NotificationImportant className="w-6 h-6" />
