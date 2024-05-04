@@ -79,10 +79,21 @@ const QuizCreatorV2 = ({}) => {
       {},
       { testName: testName, questions: questions }
     );
+    console.log(status, data);
     if (status === 200) {
-      showAlert("Quiz saved successfully");
+      showAlert({
+        title: "Success",
+        type: "foreground",
+        description: "New Quiz Added",
+        variant: "default",
+      });
     } else {
-      showAlert("Failed to save quiz", "error");
+      showAlert({
+        title: "Error",
+        type: "foreground",
+        description: "inserting course",
+        variant: "destructive",
+      });
     }
   };
   const handleTitleChange = (e) => {};
