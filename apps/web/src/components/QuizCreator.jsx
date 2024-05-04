@@ -13,6 +13,7 @@ import {
 import { DragIndicator } from "@mui/icons-material";
 import axios from "axios";
 import { useFetch } from "@/hooks/useFetch";
+import { useAlert } from "@/hooks/useAlert";
 // ...
 
 const QuizCreatorV2 = ({}) => {
@@ -22,6 +23,7 @@ const QuizCreatorV2 = ({}) => {
   const [testName, setTestName] = useState("");
   const [editingQuestionIndex, setEditingQuestionIndex] = useState(null);
   const { loading, get, post } = useFetch();
+  const showAlert = useAlert();
 
   const handleQuestionChange = (e, index) => {
     const updatedQuestions = [...questions];
@@ -72,7 +74,16 @@ const QuizCreatorV2 = ({}) => {
   };
   const saveQuiz = () => {
     console.log(questions);
-    post("/tests", {}, { testName: testName, questions: questions });
+    const { data, status } = post(
+      "/tests",
+      {},
+      { testName: testName, questions: questions }
+    );
+    if (status === 200) {
+      showAlert("Quiz saved successfully");
+    } else {
+      showAlert("Failed to save quiz", "error");
+    }
   };
   const handleTitleChange = (e) => {};
   return (

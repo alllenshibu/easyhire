@@ -3,6 +3,7 @@ import { AuthProvider } from "@/contexts/authContext";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const defaultTheme = createTheme({
   palette: {
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }) {
     <AuthProvider>
       <ThemeProvider theme={defaultTheme}>
         <Component {...pageProps} />
+        <Toaster />
       </ThemeProvider>
     </AuthProvider>
   );

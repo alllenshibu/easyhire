@@ -62,6 +62,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Training" />
     </ListItemButton>
+    <ListItemButton href="/aptitude-tests">
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Aptitude Training" />
+    </ListItemButton>
   </React.Fragment>
 );
 
