@@ -37,7 +37,7 @@ const QuizCreatorV2 = ({}) => {
 
   const handleCorrectAnswerChange = (index, optionIndex) => {
     const updatedQuestions = [...questions];
-    updatedQuestions[index].correctAnswer = optionIndex;
+    updatedQuestions[index].answer = optionIndex;
     setQuestions(updatedQuestions);
   };
 
@@ -148,7 +148,7 @@ const QuizCreatorV2 = ({}) => {
                       <FormControlLabel
                         control={
                           <Radio
-                            checked={question.correctAnswer === optionIndex}
+                            checked={question.answer === optionIndex}
                             onChange={() =>
                               handleCorrectAnswerChange(index, optionIndex)
                             }
