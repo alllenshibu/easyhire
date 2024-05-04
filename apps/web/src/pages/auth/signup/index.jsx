@@ -49,8 +49,10 @@ export default function SignIn() {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_API}/auth/coordinators/signup`,
         {
-          name: data.get("name"),
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
           email: data.get("email"),
+          phone: data.get("phone"),
           password: data.get("password"),
         }
       );
@@ -103,9 +105,18 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="name"
-              label="Name"
-              name="name"
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              name="lastName"
               autoFocus
             />
             <TextField
@@ -116,6 +127,16 @@ export default function SignIn() {
               label="Email Address"
               name="email"
               autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              name="phone"
+              autoComplete="phone"
               autoFocus
             />
             <TextField

@@ -10,6 +10,7 @@ datasource db {
 enum Role {
   ADMIN
   STUDENT
+  COMPANY
 }
 
 enum JobType {
@@ -36,6 +37,7 @@ model Users {
   groupsId     String?        @db.ObjectId
   Groups       Groups?        @relation(fields: [groupsId], references: [id])
   GroupMembers GroupMembers[]
+  companies    Companies[]
 }
 
 model Groups {
@@ -63,6 +65,8 @@ model Companies {
   email     String     @unique
   website   String
   logo      String
+  admin     Users      @relation(fields: [adminId], references: [id])
+  adminId   String     @db.ObjectId
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   openings  Openings[]

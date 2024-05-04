@@ -4,7 +4,7 @@ const multer = require("multer");
 const { loginCompany, signup, login } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
 const { addNewProfile, getProfiles } = require("./controllers/profiles");
-const { authorize } = require("./middlewares/auth");
+const { authorize, authorizeCompany } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
 const {
   addNewOpening,
@@ -37,6 +37,12 @@ const {
   getGroupById,
 } = require("./controllers/groups");
 const { uploadResume } = require("./controllers/resume");
+
+// Hire
+const {
+  hireGetAllOpenings,
+  hireGetOpeningById,
+} = require("./controllers/hire/openings");
 
 const router = express.Router();
 
@@ -99,5 +105,8 @@ router.post("/problems", addNewProblem);
 router.get("/user", authorize, getUserDetails);
 router.post("/profiles", authorize, addNewProfile);
 router.get("/profiles/:studentId", authorize, getProfiles);
+
+// Hire
+router.get("/hire/openings", authorize, authorizeCompany, hireGetAllOpenings);
 
 module.exports = router;

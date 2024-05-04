@@ -29,6 +29,31 @@ const authorize = async (req, res, next) => {
   }
 };
 
+const authorizeCompany = async (req, res, next) => {
+  try {
+    let user = req.user;
+
+    if (!user.roles.find((role) => role === "COMPANY")) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const company = await prisma.companies.findFirst({
+      where: {
+        adminId: user.id,
+      },
+    });
+
+    user.company = company;
+    req.user = user;
+
+    return next();
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 module.exports = {
   authorize,
+  authorizeCompany,
 };
