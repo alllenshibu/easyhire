@@ -10,11 +10,15 @@ import {
 } from "@mui/material";
 import { useParams } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
+import { useRouter } from "next/router";
 
 const QuizAttendee = () => {
   const { loading, get, post } = useFetch();
 
-  const { quiz_id } = useParams();
+  const router = useRouter();
+
+  const { quiz_id } = router.query;
+
   const [test, setTest] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,6 +48,7 @@ const QuizAttendee = () => {
   }, [quizCompleted]);
 
   useEffect(() => {
+    if (!quiz_id) return;
     const fetchTest = async (testId) => {
       try {
         const response = await fetch(
@@ -63,7 +68,7 @@ const QuizAttendee = () => {
     };
 
     fetchTest(quiz_id);
-  }, []);
+  }, [quiz_id]);
 
   // useEffect(() => {
   //   const fetchTestIds = async () => {

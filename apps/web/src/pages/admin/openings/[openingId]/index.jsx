@@ -79,9 +79,6 @@ export default function OpeningById() {
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
-          onRowClick={(params) => {
-            setopening(params.row);
-          }}
         />
       </div>
     </Layout>
