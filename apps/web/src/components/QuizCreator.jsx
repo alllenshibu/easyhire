@@ -72,9 +72,9 @@ const QuizCreatorV2 = ({}) => {
     newQuestions.splice(index, 0, draggedQuestion);
     setQuestions(newQuestions);
   };
-  const saveQuiz = () => {
+  const  saveQuiz = async () => {
     console.log(questions);
-    const { data, status } = post(
+    const { data, status } =await post(
       "/tests",
       {},
       { testName: testName, questions: questions }
