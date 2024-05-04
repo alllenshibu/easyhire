@@ -17,7 +17,7 @@ import { useFetch } from "@/hooks/useFetch";
 
 const QuizCreatorV2 = ({}) => {
   const [questions, setQuestions] = useState([
-    { question: "", options: ["", "", "", ""], correctAnswer: 0 },
+    { question: "", options: ["", "", "", ""], answer: 0 },
   ]);
   const [testName, setTestName] = useState("");
   const [editingQuestionIndex, setEditingQuestionIndex] = useState(null);
@@ -44,7 +44,7 @@ const QuizCreatorV2 = ({}) => {
   const addQuestion = () => {
     setQuestions([
       ...questions,
-      { question: "", options: ["", "", "", ""], correctAnswer: 0 },
+      { question: "", options: ["", "", "", ""], answer: 0 },
     ]);
   };
 
@@ -74,9 +74,7 @@ const QuizCreatorV2 = ({}) => {
     console.log(questions);
     post("/tests", {}, { testName: testName, questions: questions });
   };
-  const handleTitleChange = (e) => {
-    
-  };
+  const handleTitleChange = (e) => {};
   return (
     <div className=" gap-6 w-full self-center content-center justify-center  rounded-lg border  border-gray-200  overflow-hidden dark:border-slate-800">
       <div className="flex flex-col">
@@ -93,8 +91,7 @@ const QuizCreatorV2 = ({}) => {
           <TextField
             onChange={(e) => {
               setTestName(e.target.value);
-            }
-          }
+            }}
             className="p-4"
             placeholder="Enter your quiz title"
           />

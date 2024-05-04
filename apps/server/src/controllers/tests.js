@@ -75,8 +75,10 @@ const addNewTest = async (req, res) => {
     }
 
     for (let i = 0; i < questions.length; i++) {
+      console.log(questions[i], questions.length);
       const question = questions[i];
-      if (!question.question || !question.options || !question.answer) {
+      if (!question.question || !question.options) {
+        console.log("Question, options, and answer are required", question);
         return res.status(400).json({
           error: "Question, options, and answer are required",
           success: false,
