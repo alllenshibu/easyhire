@@ -154,7 +154,7 @@ const getAllTests = async (req, res) => {
         numberOfQuestions: test._count.testQuestions,
       };
     });
-
+    tests = tests.filter((test) => test.numberOfQuestions > 1); //return only tests with more than 1 question
     return res.status(200).json({ tests, success: true });
   } catch (err) {
     console.error(err);
