@@ -11,14 +11,17 @@ import {
   Typography,
 } from "@mui/material";
 import { DragIndicator } from "@mui/icons-material";
-
+import axios from "axios";
+import { useFetch } from "@/hooks/useFetch";
 // ...
 
-const QuizCreatorV2 = ({ course_id, day }) => {
+const QuizCreatorV2 = ({}) => {
   const [questions, setQuestions] = useState([
     { question: "", options: ["", "", "", ""], correctAnswer: 0 },
   ]);
+  const [testName, setTestName] = useState("");
   const [editingQuestionIndex, setEditingQuestionIndex] = useState(null);
+  const { loading, get, post } = useFetch();
 
   const handleQuestionChange = (e, index) => {
     const updatedQuestions = [...questions];
@@ -69,6 +72,10 @@ const QuizCreatorV2 = ({ course_id, day }) => {
   };
   const saveQuiz = () => {
     console.log(questions);
+    post("/tests", {}, { testName: testName, questions: questions });
+  };
+  const handleTitleChange = (e) => {
+    
   };
   return (
     <div className=" gap-6 w-full self-center content-center justify-center  rounded-lg border  border-gray-200  overflow-hidden dark:border-slate-800">
@@ -81,6 +88,16 @@ const QuizCreatorV2 = ({ course_id, day }) => {
           <Typography variant="body2" color="text.secondary">
             Add your questions and options.
           </Typography>
+        </div>
+        <div className="">
+          <TextField
+            onChange={(e) => {
+              setTestName(e.target.value);
+            }
+          }
+            className="p-4"
+            placeholder="Enter your quiz title"
+          />
         </div>
         <div className="p-4 flex-1 flex flex-col gap-4 overflow-auto">
           {questions.map((question, index) => (

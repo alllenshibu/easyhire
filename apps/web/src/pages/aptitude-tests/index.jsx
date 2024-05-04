@@ -38,7 +38,8 @@ const index = () => {
           <p>{test.description}</p>
         </div>
       ))}
-      <QuizCreatorV2 />
+
+      
     </Layout>
   );
 };
