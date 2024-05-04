@@ -1,6 +1,9 @@
 import { CardContent, Card } from "@/components/ui/card";
+import { useRouter } from "next/router";
+import { Button } from "@/components/ui/button";
 
-export function QuizCard({ name, numberofQuestions }) {
+export function QuizCard({ name, numberofQuestions,id }) {
+    const router =useRouter();
   return (
     <Card>
       <CardContent className="flex flex-col pt-6">
@@ -9,6 +12,7 @@ export function QuizCard({ name, numberofQuestions }) {
           <h3 className="text-lg font-medium leading-none">{name}</h3>
         </div>
         <p className="text-sm text-gray-500 ">{numberofQuestions} questions</p>
+        <Button variant="outline"  className="mt-4" onClick={()=>{router.push(`/aptitude-tests/${id}/test`)}}>Attempt</Button>
       </CardContent>
     </Card>
   );

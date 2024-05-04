@@ -40,6 +40,7 @@ const index = () => {
             <QuizCard
               name={test.name}
               numberofQuestions={test.numberOfQuestions}
+              id={test.id}
             />
           </div>
         ))}

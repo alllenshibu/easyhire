@@ -8,8 +8,10 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
+import { useParams } from "next/navigation";
 
 const QuizAttendee = () => {
+  const { quiz_id } = useParams();
   const [test, setTest] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,11 +23,12 @@ const QuizAttendee = () => {
   const [clearButtonEnabled, setClearButtonEnabled] = useState(true);
   const [selectedTestId, setSelectedTestId] = useState(null);
 
-
   useEffect(() => {
     const fetchTest = async (testId) => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/tests/${testId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_API}/tests/${testId}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch test");
         }
@@ -38,34 +41,33 @@ const QuizAttendee = () => {
         setIsLoading(false);
       }
     };
-  
-    if (selectedTestId) {
-      fetchTest(selectedTestId);
-    }
-  }, [selectedTestId]);
 
-  useEffect(() => {
-    const fetchTestIds = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/tests`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch test IDs");
-        }
-        const data = await response.json();
-        const { testIds,names,numberOfQuestions} = data;
-        
-        const selectedTestId = testIds[0]; 
-        fetchTest(selectedTestId);
-      } catch (error) {
-        console.error(error);
-        setError("Something went wrong while fetching test IDs");
-        setIsLoading(false);
-      }
-    };
-  
-    fetchTestIds();
+    fetchTest(quiz_id);
   }, []);
 
+  // useEffect(() => {
+  //   const fetchTestIds = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${process.env.NEXT_PUBLIC_SERVER_API}/tests`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch test IDs");
+  //       }
+  //       const data = await response.json();
+  //       const { testIds, names, numberOfQuestions } = data;
+
+  //       const selectedTestId = testIds[0];
+  //       fetchTest(selectedTestId);
+  //     } catch (error) {
+  //       console.error(error);
+  //       setError("Something went wrong while fetching test IDs");
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchTestIds();
+  // }, []);
 
   const handleOptionChange = (e) => {
     const updatedOptions = { ...selectedOptions };
@@ -211,7 +213,9 @@ const QuizAttendee = () => {
 
   return (
     <Card>
-      <CardContent>{quizCompleted ? renderResult() : renderQuestion()}</CardContent>
+      <CardContent>
+        {quizCompleted ? renderResult() : renderQuestion()}
+      </CardContent>
     </Card>
   );
 };
