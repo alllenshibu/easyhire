@@ -24,13 +24,14 @@ const {
   getAllTests,
   getTestById,
   addNewTest,
-} = require("./controllers/tests");
+  attemptTest,
+} = require("./controllers/training/tests");
 const {
   getAllProblems,
   addNewProblem,
   getProblemById,
   getProblemsByCompany,
-} = require("./controllers/problems");
+} = require("./controllers/training/problems");
 const {
   getAllGroups,
   createNewGroup,
@@ -96,6 +97,7 @@ router.get("/questions/:questionId", getQuestionById);
 router.get("/tests", getAllTests);
 router.get("/tests/:testId", getTestById);
 router.post("/tests", addNewTest);
+router.post("/tests/:testId", attemptTest);
 
 router.get("/problems", getAllProblems);
 router.get("/problems/:problemId", getProblemById);

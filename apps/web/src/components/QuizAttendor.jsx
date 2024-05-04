@@ -9,8 +9,11 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "next/navigation";
+import { useFetch } from "@/hooks/useFetch";
 
 const QuizAttendee = () => {
+  const { loading, get, post } = useFetch();
+
   const { quiz_id } = useParams();
   const [test, setTest] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +25,23 @@ const QuizAttendee = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [clearButtonEnabled, setClearButtonEnabled] = useState(true);
   const [selectedTestId, setSelectedTestId] = useState(null);
+
+  useEffect(() => {
+    const submitQuiz = async () => {
+      try {
+        console.log({ selectedOptions });
+        const { data, status } = await post(`/tests/${quiz_id}`, {
+          answers: selectedOptions,
+        });
+        console.log({ data, status });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    if (quizCompleted) {
+      submitQuiz();
+    }
+  }, [quizCompleted]);
 
   useEffect(() => {
     const fetchTest = async (testId) => {

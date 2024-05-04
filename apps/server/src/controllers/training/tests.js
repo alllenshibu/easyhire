@@ -1,4 +1,4 @@
-const prisma = require("../db");
+const prisma = require("../../db");
 
 const getAllQuestions = async (req, res) => {
   try {
@@ -201,10 +201,103 @@ const getTestById = async (req, res) => {
   }
 };
 
+const attemptTest = async (req, res) => {
+  try {
+    const { testId } = req.params;
+    const { answers } = req.body;
+
+    if (!answers) {
+      return res
+        .status(400)
+        .json({ error: "Answers are required", success: false });
+    }
+
+    if (!Array.isArray(answers)) {
+      return res
+        .status(400)
+        .json({ error: "Answers should be an array", success: false });
+    }
+
+    let test = await prisma.tests.findFirst({
+      where: {
+        id: testId,
+      },
+      include: {
+        testQuestions: {
+          include: {
+            question: true,
+          },
+        },
+      },
+    });
+
+    if (!test) {
+      return res.status(404).json({ error: "Test not found", success: false });
+    }
+
+    test.questions = test.testQuestions.map(({ question }) => ({
+      id: question.id,
+      question: question.question,
+      options: question.options,
+      answer: question.answer,
+    }));
+
+    let score = 0;
+    let attempted = 0;
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    for (let i = 0; i < answers.length; i++) {
+      const answer = answers[i];
+      const question = test.questions.find((q) => q.id === answer.questionId);
+
+      if (question.answer === answer.answer) {
+        score += 1;
+        correctAnswers += 1;
+      } else {
+        wrongAnswers += 1;
+      }
+    }
+
+    const newAttempt = await prisma.attempts.create({
+      data: {
+        testId: testId,
+        score,
+        total: test.questions.length,
+        attempted: answers.length,
+        correctAnswers,
+        wrongAnswers,
+      },
+    });
+
+    if (!newAttempt) {
+      return res
+        .status(500)
+        .json({ error: "Could not save attempt", success: false });
+    }
+
+    return res.status(200).json({
+      testId: testId,
+      score,
+      total: test.questions.length,
+      attempted: answers.length,
+      correctAnswers,
+      wrongAnswers,
+      success: true,
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ error: "Something went wrong", success: false });
+  }
+};
+
 module.exports = {
   getAllQuestions,
   getQuestionById,
   addNewTest,
   getAllTests,
   getTestById,
+  attemptTest,
 };
