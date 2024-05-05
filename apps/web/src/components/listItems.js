@@ -111,3 +111,29 @@ export const secondaryListItems = (
     </ListItemButton>
   </React.Fragment>
 );
+
+const AdminListItems = () => {
+  return (
+    <React.Fragment>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Students" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Groups" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Openings" />
+      </ListItemButton>
+    </React.Fragment>
+  );
+};
+

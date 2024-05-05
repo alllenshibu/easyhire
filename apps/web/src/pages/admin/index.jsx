@@ -10,34 +10,26 @@ export default function AdminDashboard() {
   const router = useRouter();
   const { get } = useFetch();
   const [groups, setGroups] = useState([]);
-  
 
- useEffect(() => {
-   const fetchGroups = async () => {
-     try {
-       const { data, status } = await get(`/groups`, {});
-       setGroups(data?.groups);
-     } catch (err) {
-       console.error(err);
-     }
-   };
-   fetchGroups();
- }, []);
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        const { data, status } = await get(`/groups`, {});
+        setGroups(data?.groups);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchGroups();
+  }, []);
   return (
     <Layout>
       <h1>Admin Dashboard</h1>
       <div className="grid gap-6 w-full max-w-sm sm:max-w-md lg:max-w-4xl xl:max-w-5xl mx-auto grid-cols-1 md:grid-cols-2 items-start">
-        {groups.map((group) => {
-          return (
-            <GroupCard
-              key={group.id}
-              name={group.name}
-      
-              id={group.id}
-            />
-          );
-
-        })}
+        {groups &&
+          groups.map((group) => {
+            return <GroupCard key={group.id} name={group.name} id={group.id} />;
+          })}
       </div>
     </Layout>
   );

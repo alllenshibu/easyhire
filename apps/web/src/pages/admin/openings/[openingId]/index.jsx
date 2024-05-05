@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 
 import { DataGrid } from "@mui/x-data-grid";
+import { MenuItem, Select } from "@mui/material";
 
 export default function OpeningById() {
   const router = useRouter();
@@ -79,12 +80,31 @@ export default function OpeningById() {
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onRowSelectionModelChange={(params) => {
+            console.log(params);
+          }}
         />
       </div>
     </Layout>
   );
 }
+const StatusDropdown = ({ value, onChange }) => {
+  const options = [
+    { value: "PENDING", label: "Pending" },
+    { value: "accepted", label: "Accepted" },
+    { value: "rejected", label: "Rejected" },
+  ];
 
+  return (
+    <Select>
+      {options.map((option) => (
+        <MenuItem value={option.value} key={option.value}>
+          {option.value === value ? <b>{option.label}</b> : option.label}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+};
 const columns = [
   {
     field: "id",
@@ -112,6 +132,16 @@ const columns = [
     headerName: "Status",
     width: 150,
     editable: true,
+    renderCell: (params) => {
+      return (
+        <StatusDropdown
+          value={params.row.status}
+          onChange={(value) => {
+            console.log(value);
+          }}
+        />
+      );
+    },
   },
   {
     field: "email",
