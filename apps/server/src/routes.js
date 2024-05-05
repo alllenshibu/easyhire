@@ -7,7 +7,7 @@ const { addNewProfile, getProfiles } = require("./controllers/profiles");
 const { authorize, authorizeCompany } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
 const { getAllAttempts } = require("./controllers/attempts");
- 
+
 const {
   addNewOpening,
   getAllOpenings,
@@ -19,6 +19,7 @@ const {
   getAllApplicationsOfAStudent,
   createApplication,
   getApplicationById,
+  editApplication,
 } = require("./controllers/applications");
 const {
   getAllQuestions,
@@ -95,6 +96,7 @@ router.post(
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
 router.get("/applications/:applicationId", authorize, getApplicationById);
 router.post("/applications", authorize, createApplication);
+router.put("/applications/:applicationId", authorize, editApplication);
 
 router.get("/notifications", authorize, getNotifications);
 

@@ -76,8 +76,30 @@ const createApplication = async (req, res) => {
   }
 };
 
+const editApplication = async (req, res) => {
+  try {
+    const { applicationId } = req.params;
+    const { status } = req.body;
+
+    const application = await prisma.applications.update({
+      where: {
+        id: applicationId,
+      },
+      data: {
+        status,
+      },
+    });
+
+    return res.status(200).json({ application });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 module.exports = {
   getAllApplicationsOfAStudent,
   getApplicationById,
   createApplication,
+  editApplication,
 };
