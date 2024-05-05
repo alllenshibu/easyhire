@@ -38,7 +38,7 @@ const signup = async (req, res) => {
         .json({ error: "User not created", success: false });
     }
 
-    return res.status(200).json({ token: user.id, success: true });
+    return res.status(200).json({ token: user.id, user, success: true });
   } catch (err) {
     console.error(err);
     return res

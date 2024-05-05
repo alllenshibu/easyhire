@@ -12,14 +12,14 @@ import { useEffect, useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import QuizAttendorV2 from "@/components/QuizAttendor";
 import QuizCreatorV2 from "@/components/QuizCreator";
-
+import { useAuth } from "@/contexts/authContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { loading, get } = useFetch();
 
   const [jobs, setJobs] = useState([]);
-
+  const { user } = useAuth();
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -31,10 +31,9 @@ export default function Home() {
         // Optional: you can add additional error handling logic here, such as displaying an error message to the user
       }
     };
-  
+
     fetchJobs();
   }, []);
-  
 
   const renderJobCards = () => {
     if (jobs && jobs.length > 0) {
@@ -49,16 +48,12 @@ export default function Home() {
           description={job.description}
           salary={job.renumeration}
           type={job.type}
-          
         />
       ));
     } else {
       return null;
     }
   };
-
-  
-  
 
   return (
     <>
@@ -96,22 +91,23 @@ export default function Home() {
               description="We are looking for a talented software engineer to join our team and help develop cutting-edge applications."
             /> */}
             {
-            renderJobCards()
-            // jobs.map((job) => (
-            //   <JobCard key={job.id} role={job.title}  />
-            // ))
-            
+              renderJobCards()
+              // jobs.map((job) => (
+              //   <JobCard key={job.id} role={job.title}  />
+              // ))
             }
           </Box>
 
-          <ProfileCard
-            name="John Doe"
-            jobTitle="Software Engineer"
-            applications="10"
-            pending="3"
-            interviews="2"
-            profilePic="https://randomuser"
-          />
+          {user && (
+            <ProfileCard
+              name={user.firstName + " " + user.lastName}
+              jobTitle="Software Engineer"
+              applications="10"
+              pending="3"
+              interviews="2"
+              profilePic="https://randomuser"
+            />
+          )}
         </Box>
       </Dashboard>
     </>

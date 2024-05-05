@@ -1,3 +1,4 @@
+import { useFetch } from "@/hooks/useFetch";
 import { useRouter } from "next/router";
 import React, { createContext, useState, useContext, useEffect } from "react";
 
@@ -8,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const { get } = useFetch();
 
   useEffect(() => {
     async function loadUserFromCookies() {
@@ -26,6 +28,22 @@ export const AuthProvider = ({ children }) => {
       setToken(token);
     }
     loadUserFromCookies();
+  }, []);
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const { data, status } = await get("/user");
+        if (status !== 200) {
+          console.error("Failed to fetch user");
+          return;
+        }
+        setUser(data.user);
+        console.log("Fetched user", data.user);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchUser();
   }, []);
 
   const logout = () => {
