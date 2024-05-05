@@ -100,7 +100,7 @@ model Openings {
   responsibilities String[]
   requirements     String[]
   remuneration     String
-  deadline         DateTime?
+  deadline         DateTime
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
   applications     Applications[]

@@ -100,9 +100,9 @@ const addNewOpening = async (req, res) => {
       role,
       location,
       description,
-      responsibilites,
+      responsibilities,
       requirements,
-      renumeration,
+      remuneration,
       type,
       experience,
     } = req.body;
@@ -112,9 +112,9 @@ const addNewOpening = async (req, res) => {
       !role ||
       !location ||
       !description ||
-      !responsibilites ||
+      !responsibilities ||
       !requirements ||
-      !renumeration
+      !remuneration
     ) {
       return res
         .status(400)
@@ -126,9 +126,9 @@ const addNewOpening = async (req, res) => {
         role,
         location,
         description,
-        responsibilites,
+        responsibilities,
         requirements,
-        renumeration: renumeration,
+        remuneration,
         companyId,
         type,
         experience,

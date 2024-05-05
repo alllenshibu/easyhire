@@ -2,7 +2,25 @@ const prisma = require("../db");
 
 const getAllGroups = async (req, res) => {
   try {
-    const groups = await prisma.groups.findMany();
+    let groups = await prisma.groups.findMany({
+      include: {
+        groupMembers: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+
+    for (let group of groups) {
+      group.members = [];
+
+      for (let member of group.groupMembers) {
+        group.members.push(member.user);
+      }
+
+      group.numberOfMembers = group.groupMembers.length;
+    }
 
     return res.status(200).json({ groups });
   } catch (err) {

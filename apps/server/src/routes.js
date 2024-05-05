@@ -81,7 +81,7 @@ router.get("/openings/:openingId", authorize, getOpeningById);
 router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
 router.post(
-  "/students/:id/resume",
+  "/students/resume",
   authorize,
   upload.single("resume"),
   uploadResume
