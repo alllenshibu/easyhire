@@ -50,13 +50,6 @@ export default function GroupById() {
       <DataGrid
         rows={group.members}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
         pageSizeOptions={[5]}
         checkboxSelection
         disableRowSelectionOnClick

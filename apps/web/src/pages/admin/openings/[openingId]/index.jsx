@@ -74,13 +74,6 @@ export default function OpeningById() {
         <DataGrid
           rows={opening.applications}
           columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick

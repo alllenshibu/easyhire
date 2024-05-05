@@ -17,6 +17,10 @@ const getNotifications = async (req, res) => {
       include: {
         company: true,
       },
+      orderBy: {
+        deadline: "asc",
+      },
+      take: 6,
     });
 
     const applications = await prisma.applications.findMany({
