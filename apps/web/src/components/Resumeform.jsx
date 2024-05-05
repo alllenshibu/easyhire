@@ -1,4 +1,5 @@
 import { use, useState, useEffect } from "react";
+import Link from "next/link";
 import axios from "axios";
 import {
   Grid,
@@ -7,38 +8,26 @@ import {
   Button,
   Autocomplete,
 } from "@mui/material";
+import { useFetch } from "@/hooks/useFetch";
 
 export default function ResumeForm({
   firstName,
   lastName,
   phone,
   email,
+  resume,
   engineeringStream,
   cgpa,
   graduationYear,
   backlogs,
   skills,
 }) {
-  async function getUser() {
-    try {
-      const { data, error } = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_API}/user`,
-        { withCredentials: true }
-      );
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     phone: "",
     email: "",
+    resume: "",
     engineeringStream: "",
     cgpa: "",
     graduationYear: "",
@@ -180,7 +169,6 @@ export default function ResumeForm({
               onChange={handleChange}
             />
           </Grid>
-
           <Grid item xs={12}>
             <TextField
               required
@@ -191,6 +179,31 @@ export default function ResumeForm({
               variant="standard"
               onChange={handleChange}
             />
+          </Grid>
+          <Grid item xs={12}>
+            {resume ? (
+              <Button>
+                <Link target="_blank" href={resume}>
+                  View Resume
+                </Link>
+              </Button>
+            ) : (
+              <Button variant="contained" component="label">
+                Upload Resume
+                <input
+                  type="file"
+                  hidden
+                  name="resume"
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    setFormData({
+                      ...formData,
+                      resume: file,
+                    });
+                  }}
+                />
+              </Button>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" sx={{ mt: 3, ml: 1 }}>

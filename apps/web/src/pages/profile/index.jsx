@@ -47,6 +47,7 @@ export default function index() {
                 lastName={user.lastName}
                 phone={user.phone}
                 email={user.email}
+                resume={user.resume}
               />
             </React.Fragment>
           </Paper>
