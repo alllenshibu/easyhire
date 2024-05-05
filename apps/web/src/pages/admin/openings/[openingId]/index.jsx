@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 
 import { DataGrid } from "@mui/x-data-grid";
+import { MenuItem, Select } from "@mui/material";
 
 export default function OpeningById() {
   const router = useRouter();
@@ -35,8 +36,12 @@ export default function OpeningById() {
     fetchOpening();
   }, [openingId]);
 
+
+  
   return (
     <Layout>
+      
+      
       <div className="col-span-2 p-4 w-full flex flex-row justify-between">
         <div className="space-y-4">
           <div>
@@ -69,21 +74,34 @@ export default function OpeningById() {
         <DataGrid
           rows={opening.applications}
           columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
           pageSizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onRowSelectionModelChange={(params) => {
+            console.log(params);
+          }}
         />
       </div>
     </Layout>
   );
 }
+const StatusDropdown = ({ value, onChange }) => {
+  const options = [
+    { value: "PENDING", label: "Pending" },
+    { value: "ACCEPTED", label: "Accepted" },
+    { value: "REJECTED", label: "Rejected" },
+  ];
+
+  return (
+    <Select>
+      {options.map((option) => (
+        <MenuItem value={option.value} key={option.value}>
+          {option.value === value ? <b>{option.label}</b> : option.label}
+        </MenuItem>
+      ))}
+    </Select>
+  );
+};
 
 const columns = [
   {
@@ -112,6 +130,17 @@ const columns = [
     headerName: "Status",
     width: 150,
     editable: true,
+    renderCell: (params) => {
+      return (
+        <StatusDropdown
+          value={params.row.status}
+          onChange={(value) => {
+            console.log(value);
+            
+          }}
+        />
+      );
+    },
   },
   {
     field: "email",
@@ -128,3 +157,22 @@ const columns = [
     valueGetter: (params) => params.row?.user?.phone,
   },
 ];
+
+
+function BasicModal() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return (
+    <div>
+      
+      <Modal open={open} onClose={handleClose}>
+        <div className="bg-white p-4 w-96">
+          <h1>Modal</h1>
+          <p>Modal content</p>
+          <Button onClick={handleClose}>Close</Button>
+        </div>
+      </Modal>
+    </div>
+  );
+}

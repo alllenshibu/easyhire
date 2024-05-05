@@ -1,39 +1,68 @@
 import Layout from "@/Layouts/Layout";
 import { useFetch } from "@/hooks/useFetch";
+import { Input } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function NewGroup() {
+export default function NewStudent() {
   const router = useRouter();
-  const { post } = useFetch();
+  const { loading, post } = useFetch();
 
-  const [name, setName] = useState("");
+  const [student, setStudent] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
 
-  const createNewGroup = async () => {
+  const addNewStudent = async () => {
     try {
-      const { data, status } = await post(
-        `/groups`,
-        {},
-        {
-          name,
-        }
-      );
-      setGroups(data?.groups);
-    } catch (err) {
-      console.error(err);
+      const { data, status } = await post("/students", {}, student);
+      if (status !== 200) {
+        console.log(data);
+        return;
+      }
+
+      router.push("/admin/students");
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
     <Layout>
-      <input
+      <Input
         type="text"
-        placeholder="Group Name"
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
+        placeholder="First Name"
+        value={student.firstName}
+        onChange={(e) => setStudent({ ...student, firstName: e.target.value })}
       />
-      <button onClick={createNewGroup}>Create</button>
+      <Input
+        type="text"
+        placeholder="Last Name"
+        value={student.lastName}
+        onChange={(e) => setStudent({ ...student, lastName: e.target.value })}
+      />
+      <Input
+        type="email"
+        placeholder="Email"
+        value={student.email}
+        onChange={(e) => setStudent({ ...student, email: e.target.value })}
+      />
+      <Input
+        type="text"
+        placeholder="Password"
+        value={student.password}
+        onChange={(e) => setStudent({ ...student, password: e.target.value })}
+      />
+      <Input
+        type="text"
+        placeholder="Phone"
+        value={student.phone}
+        onChange={(e) => setStudent({ ...student, phone: e.target.value })}
+      />
+      <button onClick={addNewStudent}>Add</button>
     </Layout>
   );
 }

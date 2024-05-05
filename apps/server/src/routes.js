@@ -14,7 +14,7 @@ const {
   getOpeningById,
   editOpening,
 } = require("./controllers/openings");
-const { getAllStudents, getStudentDetails } = require("./controllers/students");
+const { getAllStudents, addNewStudent } = require("./controllers/students");
 const {
   getAllApplicationsOfAStudent,
   createApplication,
@@ -84,7 +84,7 @@ router.get("/openings/:openingId", authorize, getOpeningById);
 router.get("/aptitude-tests/results", authorize, getAllAttempts);
 
 router.get("/students", authorize, getAllStudents);
-router.get("/students/:studentId", authorize, getStudentDetails);
+router.post("/students/", authorize, addNewStudent);
 router.post(
   "/students/resume",
   authorize,

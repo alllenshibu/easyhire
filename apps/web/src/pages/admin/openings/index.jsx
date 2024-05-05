@@ -51,13 +51,6 @@ export default function Openings() {
         <DataGrid
           rows={openings}
           columns={columns}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
           pageSizeOptions={[5]}
           disableRowSelectionOnClick
           onRowClick={(params) => {
