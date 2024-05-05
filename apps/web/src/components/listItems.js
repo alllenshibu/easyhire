@@ -91,23 +91,29 @@ export const secondaryListItems = (
     <ListSubheader component="div" inset>
       Admin
     </ListSubheader>
-    <ListItemButton>
+    <ListItemButton href="/admin/students">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Students" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="/admin/groups">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Groups" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="openings">
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Openings" />
+    </ListItemButton>
+    <ListItemButton href="/admin/aptitude-tests">
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Aptitude Tests" />
     </ListItemButton>
   </React.Fragment>
 );
@@ -136,4 +142,3 @@ const AdminListItems = () => {
     </React.Fragment>
   );
 };
-
