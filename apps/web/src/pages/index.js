@@ -22,12 +22,19 @@ export default function Home() {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const { data, status } = await get("/openings");
-      console.log(data?.openings)
-      setJobs(data?.openings);
+      try {
+        const { data, status } = await get("/openings");
+        console.log(data?.openings);
+        setJobs(data?.openings);
+      } catch (error) {
+        console.error("Failed to fetch jobs:", error);
+        // Optional: you can add additional error handling logic here, such as displaying an error message to the user
+      }
     };
+  
     fetchJobs();
   }, []);
+  
 
   const renderJobCards = () => {
     if (jobs && jobs.length > 0) {
