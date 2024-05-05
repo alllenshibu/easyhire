@@ -23,9 +23,10 @@ export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
       <NotificationProvider>
-      <ThemeProvider theme={defaultTheme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+        <ThemeProvider theme={defaultTheme}>
+          <Component {...pageProps} />
+          <Toaster />
+        </ThemeProvider>
       </NotificationProvider>
     </AuthProvider>
   );
