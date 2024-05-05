@@ -251,7 +251,9 @@ const attemptTest = async (req, res) => {
       const answer = answers[i];
       const question = test.questions.find((q) => q.id === answer.questionId);
 
-      if (question.answer === answer.answer) {
+      console.log({ question, answer });
+
+      if (question.answer === answer.option) {
         score += 1;
         correctAnswers += 1;
       } else {

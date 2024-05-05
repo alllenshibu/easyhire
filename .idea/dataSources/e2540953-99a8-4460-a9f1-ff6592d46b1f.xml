@@ -150,43 +150,43 @@
       <DasType>ISODate|91s</DasType>
       <Position>1</Position>
     </column>
-    <column id="49" parent="10" name="_id">
-      <DasType>ObjectId|12s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="50" parent="10" name="companyId">
-      <DasType>ObjectId|12s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="51" parent="10" name="createdAt">
+    <column id="49" parent="10" name="deadline">
       <DasType>ISODate|91s</DasType>
       <Position>1</Position>
     </column>
-    <column id="52" parent="10" name="description">
-      <DasType>String|12s</DasType>
+    <column id="50" parent="10" name="_id">
+      <DasType>ObjectId|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="53" parent="10" name="experience">
-      <DasType>String|12s</DasType>
+    <column id="51" parent="10" name="companyId">
+      <DasType>ObjectId|12s</DasType>
       <Position>1</Position>
     </column>
-    <column id="54" parent="10" name="location">
-      <DasType>String|12s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="55" parent="10" name="remuneration">
-      <DasType>String|12s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="56" parent="10" name="type">
-      <DasType>String|12s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="57" parent="10" name="updatedAt">
+    <column id="52" parent="10" name="createdAt">
       <DasType>ISODate|91s</DasType>
       <Position>1</Position>
     </column>
-    <column id="58" parent="10" name="deadline">
+    <column id="53" parent="10" name="description">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="54" parent="10" name="experience">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="55" parent="10" name="location">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="56" parent="10" name="remuneration">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="57" parent="10" name="type">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="58" parent="10" name="updatedAt">
       <DasType>ISODate|91s</DasType>
       <Position>1</Position>
     </column>
