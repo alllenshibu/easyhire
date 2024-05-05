@@ -4,7 +4,10 @@ const getAllAttempts = async (req, res) => {
   try {
     const attempts = await prisma.attempts.findMany({
       where: {
-        userId:req.user.id
+        userId: req.user.id,
+      },
+      include: {
+        test: true,
       },
     });
 
