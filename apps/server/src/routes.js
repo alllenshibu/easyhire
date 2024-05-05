@@ -44,6 +44,7 @@ const {
   hireGetAllOpenings,
   hireGetOpeningById,
 } = require("./controllers/hire/openings");
+const { getNotifications } = require("./controllers/students/notifications");
 
 const router = express.Router();
 
@@ -81,7 +82,7 @@ router.get("/openings/:openingId", authorize, getOpeningById);
 router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);
 router.post(
-  "/students/:id/resume",
+  "/students/resume",
   authorize,
   upload.single("resume"),
   uploadResume
@@ -90,6 +91,8 @@ router.post(
 router.get("/applications", authorize, getAllApplicationsOfAStudent);
 router.get("/applications/:applicationId", authorize, getApplicationById);
 router.post("/applications", authorize, createApplication);
+
+router.get("/notifications", authorize, getNotifications);
 
 router.get("/questions", getAllQuestions);
 router.get("/questions/:questionId", getQuestionById);

@@ -81,11 +81,12 @@ const CardItem = ({ company, deadline, role, buttonText }) => (
       <Badge variant="secondary">{deadline}</Badge>
     </div>
     <div className="text-sm text-gray-500  mt-1">{role}</div>
-    <div className="mt-3">
+    {/* <div className="mt-3">
       <button className="text-sm outline-1 outline-gray-200 bg-white inline-flex items-center px-3 py-1.5 border rounded-lg text-black hover:bg-gray-100 hover:text-gray-900 shadow-none outline-none">
         {buttonText}
       </button>
     </div>
+  */}
   </div>
 );
 
@@ -106,7 +107,7 @@ const TimelineItem = ({ company, date, event, buttonText }) => (
 );
 
 // Notifications component
-export function Notifications() {
+export function Notifications({ notifications }) {
   return (
     <div className="flex flex-col w-full min-h-screen bg-gray-100  ">
       <Header>
@@ -123,27 +124,74 @@ export function Notifications() {
         </div>
       </Header>
       <main className=" grid grid-cols-3 gap-4 p-4 md:grid-cols-3  ">
-  
-      <div className="grid grid-cols-1 gap-4 col-span-2  ">
-           <CardSection title="Upcoming Deadlines">
-          <CardItem company="Amazon" deadline="2 days" role="Software Engineer" buttonText="Set Reminder" />
-          <CardItem company="Google" deadline="5 days" role="Product Manager" buttonText="Set Reminder" />
-          <CardItem company="Microsoft" deadline="7 days" role="Software Engineer Intern" buttonText="Set Reminder" />
-        </CardSection>
-        <CardSection title="Application Status">
-          <CardItem company="Amazon" deadline="Pending" role="Software Engineer" buttonText="Update Status" />
-          <CardItem company="Google" deadline="Accepted" role="Product Manager" buttonText="Update Status" />
-          <CardItem company="Microsoft" deadline="Rejected" role="Software Engineer Intern" buttonText="Update Status" />
-        </CardSection>
+        <div className="grid grid-cols-1 gap-4 col-span-2  ">
+          <CardSection title="Upcoming Deadlines">
+            {notifications.openings?.map((opening) => (
+              <CardItem
+                key={opening.id}
+                company={opening.company.name}
+                deadline={(() => {
+                  const deadlineDate = new Date(opening.deadline);
+                  const currentDate = new Date();
+                  const timeDifference = deadlineDate - currentDate;
+
+                  if (timeDifference <= 0) {
+                    return "Deadline passed";
+                  } else {
+                    const daysRemaining = Math.floor(
+                      timeDifference / (1000 * 60 * 60 * 24)
+                    );
+                    const hoursRemaining = Math.floor(
+                      (timeDifference % (1000 * 60 * 60 * 24)) /
+                        (1000 * 60 * 60)
+                    );
+
+                    if (daysRemaining > 0) {
+                      return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} remaining`;
+                    } else {
+                      return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} remaining`;
+                    }
+                  }
+                })()}
+                role={opening.role}
+                buttonText="Set Reminder"
+              />
+            ))}
+          </CardSection>
+          <CardSection title="Application Status">
+            {notifications.applications?.map((application) => (
+              <CardItem
+                key={application.id}
+                company={application.opening.company.name}
+                deadline={application.status}
+                role={application.opening.role}
+              />
+            ))}
+          </CardSection>
         </div>
-   
+
         <div className="flex flex-col bg-white  w-auto p-4 col-span-1">
           <h2 className="">Application Timeline</h2>
-          <div  className="flex flex-col">
-          <TimelineItem company="Amazon" date="April 15, 2023" event="Application Deadline" buttonText="Set Reminder" />
-          <TimelineItem company="Google" date="May 1, 2023" event="Interview Scheduled" buttonText="Set Reminder" />
-          <TimelineItem company="Microsoft" date="May 15, 2023" event="Final Decision" buttonText="Set Reminder" />
-        </div>
+          <div className="flex flex-col">
+            <TimelineItem
+              company="Amazon"
+              date="April 15, 2023"
+              event="Application Deadline"
+              buttonText="Set Reminder"
+            />
+            <TimelineItem
+              company="Google"
+              date="May 1, 2023"
+              event="Interview Scheduled"
+              buttonText="Set Reminder"
+            />
+            <TimelineItem
+              company="Microsoft"
+              date="May 15, 2023"
+              event="Final Decision"
+              buttonText="Set Reminder"
+            />
+          </div>
         </div>
       </main>
     </div>

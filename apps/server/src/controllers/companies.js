@@ -3,8 +3,8 @@ const prisma = require("../db");
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await prisma.companies.findMany({});
-    //return as array 
-  
+    //return as array
+
     return res.json({ companies });
   } catch (err) {
     console.error(err);
@@ -17,9 +17,9 @@ const getAllCompanies = async (req, res) => {
 //
 const addNewCompany = async (req, res) => {
   try {
-    const { name, email, password, website, logo } = req.body;
+    const { name, email, website, logo } = req.body;
 
-    if (!name || !email || !password || !website || !logo) {
+    if (!name || !email || !website || !logo) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -27,7 +27,6 @@ const addNewCompany = async (req, res) => {
       data: {
         name,
         email,
-        password,
         website,
         logo,
       },

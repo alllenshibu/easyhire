@@ -68,32 +68,6 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Aptitude Training" />
     </ListItemButton>
-  </React.Fragment>
-);
-
-export const secondaryListItems = (
-  <React.Fragment>
-    <ListSubheader component="div" inset>
-      Saved reports
-    </ListSubheader>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Settings" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last quarter" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItemButton>
     <ListItemButton
       onClick={() => {
         try {
@@ -108,6 +82,32 @@ export const secondaryListItems = (
         <LogoutIcon />
       </ListItemIcon>
       <ListItemText primary="Log out" />
+    </ListItemButton>
+  </React.Fragment>
+);
+
+export const secondaryListItems = (
+  <React.Fragment>
+    <ListSubheader component="div" inset>
+      Admin
+    </ListSubheader>
+    <ListItemButton>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Students" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Groups" />
+    </ListItemButton>
+    <ListItemButton>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Openings" />
     </ListItemButton>
   </React.Fragment>
 );
