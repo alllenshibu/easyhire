@@ -11,15 +11,19 @@ const getAllStudents = async (req, res) => {
   }
 };
 
-const getStudentDetails = async (req, res) => {
+const addNewStudent = async (req, res) => {
   try {
-    const studentId = req?.params?.studentId;
-    const students = await prisma.students.findUnique({
-      where: {
-        id: studentId,
+    const { firstName, lastName, email, password, phone } = req.body;
+    const student = await prisma.users.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        password,
+        phone,
       },
     });
-    return res.status(200).json({ students });
+    return res.status(200).json({ student });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Something went wrong" });
@@ -28,5 +32,5 @@ const getStudentDetails = async (req, res) => {
 
 module.exports = {
   getAllStudents,
-  getStudentDetails,
+  addNewStudent,
 };

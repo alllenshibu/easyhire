@@ -44,7 +44,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Applications" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href="/notifications">
       <ListItemIcon>
         <NotificationImportant />
       </ListItemIcon>
