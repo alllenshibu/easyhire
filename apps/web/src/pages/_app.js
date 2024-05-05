@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import "@/styles/globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { NotificationProvider } from "@/contexts/notificationContext";
 
 const defaultTheme = createTheme({
   palette: {
@@ -21,10 +22,11 @@ const defaultTheme = createTheme({
 export default function App({ Component, pageProps }) {
   return (
     <AuthProvider>
+      <NotificationProvider>
       <ThemeProvider theme={defaultTheme}>
         <Component {...pageProps} />
-        <Toaster />
       </ThemeProvider>
+      </NotificationProvider>
     </AuthProvider>
   );
 }

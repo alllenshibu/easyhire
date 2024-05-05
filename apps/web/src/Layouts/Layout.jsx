@@ -35,7 +35,8 @@ import {
 import { green, blue } from "@mui/material/colors";
 
 import { ToastContainer, toast } from "react-toastify";
-
+import { useNotifications } from "@/contexts/notificationContext";
+import {Menu,MenuItem } from "@mui/material";
 function Copyright(props) {
   return (
     <Typography
@@ -124,11 +125,52 @@ const Dashboard = ({ children }) => {
   const toggleDrawerCart = () => () => {
     setOpenCart(!openCart);
   };
+  const { loading, notifications } = useNotifications();
+  //sort notification by deadline and return only ones with less than 2 days
+
+  const filteredNotifications =  notifications.filter((notification) => { 
+    const deadlineDate = new Date(notification.deadline);
+    const currentDate = new Date();
+    const timeDifference = deadlineDate - currentDate;
+    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    return daysRemaining < 2;
+  });
 
   useEffect(() => {
-    toast.success("Welcome to the dashboard");
+    console.log("Welcome to the dashboard");
   }, []);
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuopen = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+ function calculateDeadline(opening) {
+   const deadlineDate = new Date(opening.deadline);
+   const currentDate = new Date();
+   const timeDifference = deadlineDate - currentDate;
+
+   if (timeDifference <= 0) {
+     return "Deadline passed";
+   } else {
+     const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+     const hoursRemaining = Math.floor(
+       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+     );
+
+     if (daysRemaining > 0) {
+       return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} `;
+     } else {
+       return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} `;
+     }
+   }
+ }
+
+ // Usage
+ 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -160,11 +202,46 @@ const Dashboard = ({ children }) => {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton
+              id="basic-button"
+              aria-controls={menuopen ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={menuopen ? "true" : undefined}
+              onClick={handleClick}
+              color="inherit"
+            >
+              <Badge badgeContent={filteredNotifications.length} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={menuopen}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              {filteredNotifications.map((notification) => (
+                <MenuItem onClick={handleClose}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <Mail />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={notification.company.name}
+                        secondary={`${calculateDeadline(notification)} left`}
+                      />
+
+                
+                    
+                    </ListItemButton>
+                  </ListItem>
+                </MenuItem>
+              ))}
+            </Menu>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -202,40 +279,6 @@ const Dashboard = ({ children }) => {
           <Toolbar />
 
           {children}
-
-          {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-             
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
-            
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
-         
-              <Grid item xs={12}>
-                <Paper
-                  sx={{ p: 2, display: "flex", flexDirection: "column" }}
-                ></Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container> */}
         </Box>
       </Box>
     </ThemeProvider>
