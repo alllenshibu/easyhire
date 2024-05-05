@@ -124,19 +124,24 @@ const Dashboard = ({ children }) => {
     setOpenCart(!openCart);
   };
   const { loading, notifications } = useNotifications();
+  const [filteredNotifications, setFilteredNotifications] = React.useState([]);
   //sort notification by deadline and return only ones with less than 2 days
-
-  const filteredNotifications = notifications.filter((notification) => {
-    const deadlineDate = new Date(notification.deadline);
-    const currentDate = new Date();
-    const timeDifference = deadlineDate - currentDate;
-    const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    return daysRemaining < 2;
-  });
 
   useEffect(() => {
     console.log("Welcome to the dashboard");
-  }, []);
+    if (notifications) {
+      const filteredNotifications = notifications.filter((notification) => {
+        const deadlineDate = new Date(notification.deadline);
+        const currentDate = new Date();
+        const timeDifference = deadlineDate - currentDate;
+        const daysRemaining = Math.floor(
+          timeDifference / (1000 * 60 * 60 * 24)
+        );
+        return daysRemaining < 2;
+      });
+      setFilteredNotifications(filteredNotifications);
+    }
+  }, [notifications]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const menuopen = Boolean(anchorEl);
@@ -177,7 +182,7 @@ const Dashboard = ({ children }) => {
           <Toolbar
             sx={{
               pr: "24px",
-              backgroundColor:"#2b2b2b" // keep right padding when drawer closed
+              backgroundColor: "#2b2b2b", // keep right padding when drawer closed
             }}
           >
             <IconButton
@@ -238,7 +243,6 @@ const Dashboard = ({ children }) => {
                       </ListItemIcon>
                       <ListItemText
                         primary={notification.company.name}
-                  
                         secondary={`${calculateDeadline(notification)} left`}
                       />
                     </ListItemButton>
