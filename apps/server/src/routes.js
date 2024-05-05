@@ -6,6 +6,8 @@ const { getAllCompanies, addNewCompany } = require("./controllers/companies");
 const { addNewProfile, getProfiles } = require("./controllers/profiles");
 const { authorize, authorizeCompany } = require("./middlewares/auth");
 const { getUserDetails } = require("./controllers/user");
+const { getAllAttempts } = require("./controllers/attempts");
+ 
 const {
   addNewOpening,
   getAllOpenings,
@@ -78,6 +80,8 @@ router.post("/openings", authorize, addNewOpening);
 router.get("/openings", authorize, getAllOpenings);
 router.put("/openings/:openingId", authorize, editOpening);
 router.get("/openings/:openingId", authorize, getOpeningById);
+
+router.get("/aptitude-tests/results", authorize, getAllAttempts);
 
 router.get("/students", authorize, getAllStudents);
 router.get("/students/:studentId", authorize, getStudentDetails);

@@ -3,6 +3,9 @@
 from fastapi import FastAPI
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
+class PromptRequest():
+    prompt: str
+
 # Initialize FastAPI app
 app = FastAPI()
 
@@ -12,9 +15,10 @@ model = AutoModelForCausalLM.from_pretrained("microsoft/phi-2")
 
 # Define API endpoint
 @app.post("/generate_text/")
-async def generate_text():
 
-    prompt = "Once upon a time, there was a young princess who lived in a castle."
+async def generate_text(request: PromptRequest):
+    prompt = request.prompt
+
     # Tokenize input text
     input_ids = tokenizer.encode(prompt, return_tensors="pt", max_length=50, truncation=True)
 
