@@ -262,11 +262,12 @@ const attemptTest = async (req, res) => {
     const newAttempt = await prisma.attempts.create({
       data: {
         testId: testId,
+        userId: req.user.id,
         score,
         total: test.questions.length,
         attempted: answers.length,
-        correctAnswers,
-        wrongAnswers,
+        correct: correctAnswers,
+        incorrect: wrongAnswers,
       },
     });
 

@@ -105,6 +105,7 @@ const addNewOpening = async (req, res) => {
       remuneration,
       type,
       experience,
+      deadline,
     } = req.body;
 
     if (
@@ -114,7 +115,8 @@ const addNewOpening = async (req, res) => {
       !description ||
       !responsibilities ||
       !requirements ||
-      !remuneration
+      !remuneration ||
+      !deadline
     ) {
       return res
         .status(400)
@@ -132,6 +134,7 @@ const addNewOpening = async (req, res) => {
         companyId,
         type,
         experience,
+        deadline,
       },
     });
 

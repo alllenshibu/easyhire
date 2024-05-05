@@ -100,7 +100,7 @@ router.get("/questions/:questionId", getQuestionById);
 router.get("/tests", getAllTests);
 router.get("/tests/:testId", getTestById);
 router.post("/tests", addNewTest);
-router.post("/tests/:testId", attemptTest);
+router.post("/tests/:testId", authorize, attemptTest);
 
 router.get("/problems", getAllProblems);
 router.get("/problems/:problemId", getProblemById);

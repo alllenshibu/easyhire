@@ -34,9 +34,14 @@ const QuizAttendee = () => {
     const submitQuiz = async () => {
       try {
         console.log({ selectedOptions });
-        const { data, status } = await post(`/tests/${quiz_id}`, {
-          answers: selectedOptions,
-        });
+        const answers = Object.entries(selectedOptions).map(
+          ([questionId, option]) => ({ questionId, option })
+        );
+        const { data, status } = await post(
+          `/tests/${quiz_id}`,
+          {},
+          { answers }
+        );
         console.log({ data, status });
       } catch (error) {
         console.error(error);
@@ -70,33 +75,10 @@ const QuizAttendee = () => {
     fetchTest(quiz_id);
   }, [quiz_id]);
 
-  // useEffect(() => {
-  //   const fetchTestIds = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `${process.env.NEXT_PUBLIC_SERVER_API}/tests`
-  //       );
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch test IDs");
-  //       }
-  //       const data = await response.json();
-  //       const { testIds, names, numberOfQuestions } = data;
-
-  //       const selectedTestId = testIds[0];
-  //       fetchTest(selectedTestId);
-  //     } catch (error) {
-  //       console.error(error);
-  //       setError("Something went wrong while fetching test IDs");
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchTestIds();
-  // }, []);
-
   const handleOptionChange = (e) => {
+    const questionId = test.questions[currentQuestionIndex].id;
     const updatedOptions = { ...selectedOptions };
-    updatedOptions[currentQuestionIndex] = parseInt(e.target.value);
+    updatedOptions[questionId] = parseInt(e.target.value);
     setSelectedOptions(updatedOptions);
     if (!visitedQuestions.includes(currentQuestionIndex)) {
       setVisitedQuestions([...visitedQuestions, currentQuestionIndex]);
@@ -117,8 +99,9 @@ const QuizAttendee = () => {
   };
 
   const handleClearOption = () => {
+    const questionId = test.questions[currentQuestionIndex].id;
     const updatedOptions = { ...selectedOptions };
-    delete updatedOptions[currentQuestionIndex];
+    delete updatedOptions[questionId];
     setSelectedOptions(updatedOptions);
     setClearButtonEnabled(true);
   };
@@ -128,8 +111,9 @@ const QuizAttendee = () => {
 
     let newScore = 0;
     for (let i = 0; i < test.questions.length; i++) {
+      const questionId = test.questions[i].id;
       const correctAnswer = test.questions[i].answer;
-      const selectedOption = selectedOptions[i];
+      const selectedOption = selectedOptions[questionId];
       if (selectedOption === correctAnswer) {
         newScore++;
       }
@@ -139,7 +123,8 @@ const QuizAttendee = () => {
 
   const renderQuestion = () => {
     const question = test.questions[currentQuestionIndex];
-    const selectedOption = selectedOptions[currentQuestionIndex];
+    const questionId = question.id;
+    const selectedOption = selectedOptions[questionId];
 
     return (
       <div className="flex">
