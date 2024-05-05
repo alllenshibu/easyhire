@@ -36,8 +36,12 @@ export default function OpeningById() {
     fetchOpening();
   }, [openingId]);
 
+
+  
   return (
     <Layout>
+      
+      
       <div className="col-span-2 p-4 w-full flex flex-row justify-between">
         <div className="space-y-4">
           <div>
@@ -91,8 +95,8 @@ export default function OpeningById() {
 const StatusDropdown = ({ value, onChange }) => {
   const options = [
     { value: "PENDING", label: "Pending" },
-    { value: "accepted", label: "Accepted" },
-    { value: "rejected", label: "Rejected" },
+    { value: "ACCEPTED", label: "Accepted" },
+    { value: "REJECTED", label: "Rejected" },
   ];
 
   return (
@@ -105,6 +109,7 @@ const StatusDropdown = ({ value, onChange }) => {
     </Select>
   );
 };
+
 const columns = [
   {
     field: "id",
@@ -138,6 +143,7 @@ const columns = [
           value={params.row.status}
           onChange={(value) => {
             console.log(value);
+            
           }}
         />
       );
@@ -158,3 +164,22 @@ const columns = [
     valueGetter: (params) => params.row?.user?.phone,
   },
 ];
+
+
+function BasicModal() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  return (
+    <div>
+      
+      <Modal open={open} onClose={handleClose}>
+        <div className="bg-white p-4 w-96">
+          <h1>Modal</h1>
+          <p>Modal content</p>
+          <Button onClick={handleClose}>Close</Button>
+        </div>
+      </Modal>
+    </div>
+  );
+}
