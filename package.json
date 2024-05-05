@@ -27,8 +27,10 @@
   ],
   "dependencies": {
     "@mui/icons-material": "^5.15.14",
+    "@mui/system": "^5.15.15",
     "@mui/x-charts": "^6.19.8",
     "@mui/x-data-grid": "^6.19.8",
+    "@mui/x-data-grid-pro": "^7.3.2",
     "react-beautiful-dnd": "^13.1.1",
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.0.3"
