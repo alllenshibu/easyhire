@@ -26,7 +26,7 @@ const SearchBar = ({ placeholder }) => (
     <div className="relative">
       <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
       <Input
-        className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+        className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] "
         placeholder={placeholder}
         type="search"
       />
@@ -58,12 +58,6 @@ const CardSection = ({ title, children }) => (
   <Card className="col-span-1 lg:col-span-2">
     <CardHeader className="flex items-center justify-between pb-2">
       <CardTitle className="text-lg font-medium">{title}</CardTitle>
-      <Link
-        className="text-sm font-medium text-blue-500 hover:underline"
-        href="#"
-      >
-        View All
-      </Link>
     </CardHeader>
     <CardContent>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -78,7 +72,10 @@ const CardItem = ({ company, deadline, role, buttonText }) => (
   <div className="bg-white rounded-lg shadow-sm p-4 ">
     <div className="flex items-center justify-between">
       <div className="text-sm font-medium">{company}</div>
-      <Badge variant="secondary">{deadline}</Badge>
+      {/*if dead line is less than 2 days show red badge else show yellow badge*/}
+      <Badge variant={deadline[0] < 2 ? "destructive" : "yellow"}>
+        {deadline}
+      </Badge>
     </div>
     <div className="text-sm text-gray-500  mt-1">{role}</div>
     {/* <div className="mt-3">
@@ -123,7 +120,7 @@ export function Notifications({ notifications }) {
           <UserMenu />
         </div>
       </Header>
-      <main className=" grid grid-cols-3 gap-4 p-4 md:grid-cols-3  ">
+      <main className=" grid  gap-4 p-4 md:grid-cols-2  ">
         <div className="grid grid-cols-1 gap-4 col-span-2  ">
           <CardSection title="Upcoming Deadlines">
             {notifications.openings?.map((opening) => (
@@ -147,9 +144,9 @@ export function Notifications({ notifications }) {
                     );
 
                     if (daysRemaining > 0) {
-                      return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} remaining`;
+                      return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} `;
                     } else {
-                      return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} remaining`;
+                      return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} `;
                     }
                   }
                 })()}
@@ -170,7 +167,7 @@ export function Notifications({ notifications }) {
           </CardSection>
         </div>
 
-        <div className="flex flex-col bg-white  w-auto p-4 col-span-1">
+        {/* <div className="flex flex-col bg-white  w-auto p-4 col-span-1">
           <h2 className="">Application Timeline</h2>
           <div className="flex flex-col">
             <TimelineItem
@@ -192,7 +189,7 @@ export function Notifications({ notifications }) {
               buttonText="Set Reminder"
             />
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );
