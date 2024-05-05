@@ -176,7 +176,8 @@ const Dashboard = ({ children }) => {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              pr: "24px",
+              backgroundColor:"#2b2b2b" // keep right padding when drawer closed
             }}
           >
             <IconButton
