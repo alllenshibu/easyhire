@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         //validate token
         console.log("Got a token in the cookies, let's see if it is valid");
+        console.log({ user });
 
         if (router.pathname.startsWith("/auth/")) {
           router.push("/");
@@ -27,9 +28,6 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
       setToken(token);
     }
-    loadUserFromCookies();
-  }, []);
-  useEffect(() => {
     async function fetchUser() {
       try {
         const { data, status } = await get("/user");
@@ -44,7 +42,18 @@ export const AuthProvider = ({ children }) => {
       }
     }
     fetchUser();
+    loadUserFromCookies();
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    if (
+      router.pathname.startsWith("/admin") &&
+      !user?.roles?.includes("ADMIN")
+    ) {
+      router.push("/");
+    }
+  }, [user]);
 
   const logout = () => {
     window.localStorage.removeItem("token");
