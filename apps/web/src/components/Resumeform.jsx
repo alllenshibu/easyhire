@@ -23,10 +23,10 @@ export default function ResumeForm({
   skills,
 }) {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
+    firstName: firstName,
+    lastName: lastName,
+    phone: phone,
+    email: email,
     resume: "",
     engineeringStream: "",
     cgpa: "",
@@ -70,7 +70,7 @@ export default function ResumeForm({
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={firstName}
+              value={formData.firstName}
               required
               id="firstName"
               name="firstName"
@@ -82,7 +82,7 @@ export default function ResumeForm({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={lastName}
+              value={formData.lastName}
               required
               id="lastName"
               name="lastName"
@@ -204,6 +204,7 @@ export default function ResumeForm({
                 />
               </Button>
             )}
+
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" type="submit" sx={{ mt: 3, ml: 1 }}>

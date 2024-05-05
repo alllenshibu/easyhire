@@ -1,5 +1,4 @@
 import * as React from "react";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,9 +11,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
+
 import Link from "@mui/material/Link";
 import Mail from "@mui/icons-material/Mail";
 
@@ -25,7 +22,7 @@ import { mainListItems, secondaryListItems } from "../components/listItems";
 import { Inbox, RouteRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import axios from "axios";
+
 import {
   ListItem,
   ListItemButton,
@@ -36,7 +33,8 @@ import { green, blue } from "@mui/material/colors";
 
 import { ToastContainer, toast } from "react-toastify";
 import { useNotifications } from "@/contexts/notificationContext";
-import {Menu,MenuItem } from "@mui/material";
+import { Menu, MenuItem } from "@mui/material";
+
 function Copyright(props) {
   return (
     <Typography
@@ -128,7 +126,7 @@ const Dashboard = ({ children }) => {
   const { loading, notifications } = useNotifications();
   //sort notification by deadline and return only ones with less than 2 days
 
-  const filteredNotifications =  notifications.filter((notification) => { 
+  const filteredNotifications = notifications.filter((notification) => {
     const deadlineDate = new Date(notification.deadline);
     const currentDate = new Date();
     const timeDifference = deadlineDate - currentDate;
@@ -148,29 +146,29 @@ const Dashboard = ({ children }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
- function calculateDeadline(opening) {
-   const deadlineDate = new Date(opening.deadline);
-   const currentDate = new Date();
-   const timeDifference = deadlineDate - currentDate;
+  function calculateDeadline(opening) {
+    const deadlineDate = new Date(opening.deadline);
+    const currentDate = new Date();
+    const timeDifference = deadlineDate - currentDate;
 
-   if (timeDifference <= 0) {
-     return "Deadline passed";
-   } else {
-     const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-     const hoursRemaining = Math.floor(
-       (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-     );
+    if (timeDifference <= 0) {
+      return "Deadline passed";
+    } else {
+      const daysRemaining = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hoursRemaining = Math.floor(
+        (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
 
-     if (daysRemaining > 0) {
-       return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} `;
-     } else {
-       return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} `;
-     }
-   }
- }
+      if (daysRemaining > 0) {
+        return `${daysRemaining} day${daysRemaining > 1 ? "s" : ""} `;
+      } else {
+        return `${hoursRemaining} hour${hoursRemaining > 1 ? "s" : ""} `;
+      }
+    }
+  }
 
- // Usage
- 
+  // Usage
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
@@ -210,7 +208,10 @@ const Dashboard = ({ children }) => {
               onClick={handleClick}
               color="inherit"
             >
-              <Badge badgeContent={filteredNotifications.length} color="secondary">
+              <Badge
+                badgeContent={filteredNotifications.length}
+                color="secondary"
+              >
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -226,17 +227,19 @@ const Dashboard = ({ children }) => {
               {filteredNotifications.map((notification) => (
                 <MenuItem onClick={handleClose}>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton
+                      onClick={() => {
+                        router.push(`/openings/${notification.id}`);
+                      }}
+                    >
                       <ListItemIcon>
                         <Mail />
                       </ListItemIcon>
                       <ListItemText
                         primary={notification.company.name}
+                  
                         secondary={`${calculateDeadline(notification)} left`}
                       />
-
-                
-                    
                     </ListItemButton>
                   </ListItem>
                 </MenuItem>
