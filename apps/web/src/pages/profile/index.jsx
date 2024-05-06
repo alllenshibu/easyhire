@@ -43,10 +43,8 @@ export default function index() {
 
             <React.Fragment>
               <ResumeForm
-                firstName={user.firstName}
-                lastName={user.lastName}
-                phone={user.phone}
-                email={user.email}
+                user={user}
+                setUser={setUser}
                 resume={user.resume}
               />
             </React.Fragment>

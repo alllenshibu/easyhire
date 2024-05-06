@@ -11,29 +11,8 @@ import {
 import { useFetch } from "@/hooks/useFetch";
 
 export default function ResumeForm({
-  firstName,
-  lastName,
-  phone,
-  email,
-  resume,
-  engineeringStream,
-  cgpa,
-  graduationYear,
-  backlogs,
-  skills,
+  user,setUser,resume
 }) {
-  const [formData, setFormData] = useState({
-    firstName: firstName,
-    lastName: lastName,
-    phone: phone,
-    email: email,
-    resume: "",
-    engineeringStream: "",
-    cgpa: "",
-    graduationYear: "",
-    backlogs: "",
-    skills: "",
-  });
   const streams = [
     "Computer Science",
     "Electrical and Communication",
@@ -55,8 +34,8 @@ export default function ResumeForm({
   };
 
   const handleChange = (event) => {
-    setFormData({
-      ...formData,
+    setUser({
+      ...user,
       [event.target.name]: event.target.value,
     });
   };
@@ -70,7 +49,7 @@ export default function ResumeForm({
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={formData.firstName}
+              value={user.firstName}
               required
               id="firstName"
               name="firstName"
@@ -82,7 +61,7 @@ export default function ResumeForm({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={formData.lastName}
+              value={user.lastName}
               required
               id="lastName"
               name="lastName"
@@ -94,7 +73,7 @@ export default function ResumeForm({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={phone}
+              value={user.phone}
               required
               id="phone"
               name="phone"
@@ -106,7 +85,7 @@ export default function ResumeForm({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={email}
+              value={user.email}
               required
               id="email"
               name="email"
@@ -196,8 +175,8 @@ export default function ResumeForm({
                   name="resume"
                   onChange={(event) => {
                     const file = event.target.files[0];
-                    setFormData({
-                      ...formData,
+                    setUser({
+                      ...user,
                       resume: file,
                     });
                   }}
