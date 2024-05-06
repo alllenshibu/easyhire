@@ -5,9 +5,13 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAlert } from "@/hooks/useAlert";
 
 export default function NewStudent() {
   const router = useRouter();
+
+  const showAlert = useAlert();
+
   const { loading, post } = useFetch();
 
   const [student, setStudent] = useState({
@@ -22,12 +26,22 @@ export default function NewStudent() {
     e.preventDefault();
     try {
       const { data, status } = await post("/students", {}, student);
-      if (status !== 200) {
-        console.log(data);
-        return;
+      if (status === 200) {
+        showAlert({
+          title: "Success",
+          type: "foreground",
+          description: "Student Added",
+          variant: "default",
+        });
+        router.push("/admin/students");
+      } else {
+        showAlert({
+          title: "Error",
+          type: "foreground",
+          description: "Failed to add student",
+          variant: "destructive",
+        });
       }
-
-      router.push("/admin/students");
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +61,9 @@ export default function NewStudent() {
                 id="first-name"
                 placeholder="John"
                 value={student.firstName}
-                onChange={(e) => setStudent({ ...student, firstName: e.target.value })}
+                onChange={(e) =>
+                  setStudent({ ...student, firstName: e.target.value })
+                }
                 required
               />
             </div>
@@ -57,7 +73,9 @@ export default function NewStudent() {
                 id="last-name"
                 placeholder="Doe"
                 value={student.lastName}
-                onChange={(e) => setStudent({ ...student, lastName: e.target.value })}
+                onChange={(e) =>
+                  setStudent({ ...student, lastName: e.target.value })
+                }
                 required
               />
             </div>
@@ -68,7 +86,9 @@ export default function NewStudent() {
               id="email"
               placeholder="m@example.com"
               value={student.email}
-              onChange={(e) => setStudent({ ...student, email: e.target.value })}
+              onChange={(e) =>
+                setStudent({ ...student, email: e.target.value })
+              }
               required
               type="email"
             />
@@ -79,7 +99,9 @@ export default function NewStudent() {
               id="password"
               placeholder="••••••••"
               value={student.password}
-              onChange={(e) => setStudent({ ...student, password: e.target.value })}
+              onChange={(e) =>
+                setStudent({ ...student, password: e.target.value })
+              }
               required
               type="password"
             />
@@ -90,12 +112,19 @@ export default function NewStudent() {
               id="phone"
               placeholder="+91 "
               value={student.phone}
-              onChange={(e) => setStudent({ ...student, phone: e.target.value })}
+              onChange={(e) =>
+                setStudent({ ...student, phone: e.target.value })
+              }
               required
               type="tel"
             />
           </div>
-          <Button className="w-full" type="submit" disabled={loading} onClick={addNewStudent}>
+          <Button
+            className="w-full"
+            type="submit"
+            disabled={loading}
+            onClick={addNewStudent}
+          >
             Add
           </Button>
         </form>

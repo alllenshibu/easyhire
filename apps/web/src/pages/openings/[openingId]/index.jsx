@@ -26,12 +26,17 @@ export default function OpeningById() {
         }
       );
       if (status === 200) {
-        showAlert("Successfully applied");
+        showAlert({
+          title: "Success",
+          type: "foreground",
+          description: "Applied for opening successfully",
+          variant: "default",
+        });
       } else {
         showAlert({
           title: "Error",
           type: "foreground",
-          description: "inserting course",
+          description: "Failed to apply for opening",
           variant: "destructive",
         });
       }

@@ -91,7 +91,7 @@ const QuizCreatorV2 = ({}) => {
       showAlert({
         title: "Error",
         type: "foreground",
-        description: "inserting course",
+        description: "Failed to add quiz",
         variant: "destructive",
       });
     }

@@ -11,11 +11,14 @@ import {
 import { useParams } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
 import { useRouter } from "next/router";
+import { useAlert } from "@/hooks/useAlert";
 
 const QuizAttendee = () => {
   const { loading, get, post } = useFetch();
 
   const router = useRouter();
+
+  const showAlert = useAlert();
 
   const { quiz_id } = router.query;
 
@@ -42,6 +45,22 @@ const QuizAttendee = () => {
           {},
           { answers }
         );
+
+        if (status === 200) {
+          showAlert({
+            title: "Success",
+            type: "foreground",
+            description: "Submitted quiz successfully",
+            variant: "default",
+          });
+        } else {
+          showAlert({
+            title: "Error",
+            type: "foreground",
+            description: "Failed to submit quiz",
+            variant: "destructive",
+          });
+        }
         console.log({ data, status });
       } catch (error) {
         console.error(error);
