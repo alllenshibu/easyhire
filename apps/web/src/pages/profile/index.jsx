@@ -39,7 +39,6 @@ export default function index() {
 
   return (
     <Layout>
-      <div>{JSON.stringify(user)}</div>
       <React.Fragment>
         <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
           <Paper
