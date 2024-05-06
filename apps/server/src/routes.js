@@ -5,7 +5,7 @@ const { loginCompany, signup, login } = require("./controllers/auth");
 const { getAllCompanies, addNewCompany } = require("./controllers/companies");
 const { addNewProfile, getProfiles } = require("./controllers/profiles");
 const { authorize, authorizeCompany } = require("./middlewares/auth");
-const { getUserDetails } = require("./controllers/user");
+const { getUserDetails, editUser } = require("./controllers/user");
 const { getAllAttempts } = require("./controllers/attempts");
 
 const {
@@ -114,6 +114,8 @@ router.get("/problems/company/:companyId", getProblemsByCompany);
 router.post("/problems", addNewProblem);
 
 router.get("/user", authorize, getUserDetails);
+router.put("/user", authorize, editUser);
+
 router.post("/profiles", authorize, addNewProfile);
 router.get("/profiles/:studentId", authorize, getProfiles);
 

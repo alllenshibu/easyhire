@@ -5,7 +5,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useEffect, useState } from "react";
 import { Box, Container, Typography, Paper } from "@mui/material";
 export default function index() {
-  const { get } = useFetch();
+  const { get, put } = useFetch();
 
   const [user, setUser] = useState({
     firstName: "",
@@ -28,6 +28,15 @@ export default function index() {
     fetchUserDetails();
   }, []);
 
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data, status } = await put("/user", {}, user);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Layout>
       <div>{JSON.stringify(user)}</div>
@@ -45,7 +54,8 @@ export default function index() {
               <ResumeForm
                 user={user}
                 setUser={setUser}
-                resume={user.resume}
+                resume={user?.resume}
+                handleSubmit={handleEdit}
               />
             </React.Fragment>
           </Paper>

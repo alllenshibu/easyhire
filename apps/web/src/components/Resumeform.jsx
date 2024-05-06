@@ -10,28 +10,12 @@ import {
 } from "@mui/material";
 import { useFetch } from "@/hooks/useFetch";
 
-export default function ResumeForm({
-  user,setUser,resume
-}) {
-  const streams = [
-    "Computer Science",
-    "Electrical and Communication",
-    "Electronics",
-    // Add more engineering streams as needed
-  ];
+export default function ResumeForm({ user, setUser, resume, handleSubmit }) {
+  const streams = ["CSE", "ECE", "EB", "ME", "EE"];
 
   const [selectedStream, setSelectedStream] = useState(null);
 
   const [resumeSaved, setResumeSaved] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Call function to handle form submission
-    // Example: Send data to server or update state
-
-    setResumeSaved(true); // Temporary action to simulate form submission
-  };
 
   const handleChange = (event) => {
     setUser({
@@ -99,9 +83,10 @@ export default function ResumeForm({
             <Autocomplete
               disablePortal
               id="engineering-stream-autocomplete"
+              name="stream"
               options={streams}
               getOptionLabel={(stream) => stream}
-              value={selectedStream}
+              value={user.stream || selectedStream}
               onChange={(event, newValue) => {
                 setSelectedStream(newValue);
               }}
@@ -123,6 +108,7 @@ export default function ResumeForm({
               label="CGPA"
               fullWidth
               variant="standard"
+              value={user.cgpa}
               onChange={handleChange}
             />
           </Grid>
@@ -132,28 +118,6 @@ export default function ResumeForm({
               id="graduationYear"
               name="graduationYear"
               label="Graduation Year"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="backlogs"
-              name="backlogs"
-              label="No. of Backlogs"
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="skills"
-              name="skills"
-              label="Skills"
               fullWidth
               variant="standard"
               onChange={handleChange}
@@ -183,10 +147,14 @@ export default function ResumeForm({
                 />
               </Button>
             )}
-
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" type="submit" sx={{ mt: 3, ml: 1 }}>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ mt: 3, ml: 1 }}
+              onClick={handleSubmit}
+            >
               {resumeSaved ? "Resume Saved" : "Save Profile"}
             </Button>
           </Grid>

@@ -24,6 +24,14 @@ enum ApplicationStatus {
   REJECTED
 }
 
+enum Stream {
+  CSE
+  ECE
+  EB
+  ME
+  EE
+}
+
 model Users {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
   firstName    String
@@ -31,7 +39,10 @@ model Users {
   phone        String         @unique
   email        String         @unique
   password     String
+  cgpa         Float?
+  stream       Stream?
   resume       String?
+  year         Int?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   roles        Role[]         @default([STUDENT])
