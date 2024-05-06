@@ -20,7 +20,7 @@ const getNotifications = async (req, res) => {
       orderBy: {
         deadline: "asc",
       },
-      take: 6,
+      take: 10,
     });
 
     const applications = await prisma.applications.findMany({
